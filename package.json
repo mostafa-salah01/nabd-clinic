@@ -1,0 +1,11 @@
+{
+  "name": "nabd-medical-care",
+  "version": "1.0.0",
+  "description": "نبض للرعاية الطبية - موقع إلكتروني لحجز الاستشارات والكشف الطبي",
+  "scripts": {
+    "dev": "node server.js",
+    "build": "node -e \"console.log('Build OK')\"",
+    "start": "node server.js"
+  },
+  "dependencies": {}
+}

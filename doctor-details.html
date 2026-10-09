@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الملف الطبي للطبيب | نبض للرعاية الطبية</title>
+  <meta name="description" content="الملف الشخصي والخبرات الطبية وجدول المواعيد المتاحة للأسبوع القادم مع إمكانية الحجز الفوري.">
+
+  <meta property="og:type" content="profile">
+  <meta property="og:title" content="الملف الطبي للطبيب | نبض للرعاية الطبية">
+  <meta property="og:description" content="تعرف على مؤهلات الطبيب ورسوم الكشف واحجز موعدك مباشرة.">
+  <meta property="og:image" content="./images/logo-icon.png">
+  <meta property="og:site_name" content="نبض للرعاية الطبية">
+
+  <link rel="icon" type="image/png" href="./images/logo-icon.png">
+  <link rel="stylesheet" href="./css/style.css">
+
+  <!-- Schema.org Physician Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Physician",
+    "name": "طبيب في مركز نبض للرعاية الطبية",
+    "medicalSpecialty": "Medicine",
+    "hospitalAffiliation": {
+      "@type": "MedicalClinic",
+      "name": "نبض للرعاية الطبية - Nabd Medical Care"
+    }
+  }
+  </script>
+
+  <script src="./js/data.js"></script>
+  <script src="./js/main.js" defer></script>
+</head>
+<body>
+
+  <div id="site-header"></div>
+
+  <main id="main-content">
+    <section class="page-banner" aria-label="Page Banner">
+      <img src="./images/banner.jpg" alt="تفاصيل الطبيب" class="page-banner-bg" fetchpriority="high" onerror="window.handleImageError(this)">
+      <div class="container page-banner-content">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="./index.html" data-i18n="nav.home">الرئيسية</a>
+          <span>/</span>
+          <a href="./doctors.html" data-i18n="nav.doctors">الأطباء</a>
+          <span>/</span>
+          <span data-i18n="featuredDoctors.viewProfile">الملف الشخصي</span>
+        </nav>
+        <h1 class="page-banner-title" data-i18n="featuredDoctors.viewProfile">الملف الطبي للطبيب</h1>
+        <p class="page-banner-desc" data-i18n="doctorDetailsPage.scheduleTitle">جدول المواعيد المتاحة خلال الأسبوع القادم</p>
+      </div>
+    </section>
+
+    <section class="section section-light">
+      <div class="container">
+        <!-- المحتوى يُحقن بواسطة JavaScript عبر initDoctorDetailsPage -->
+        <div id="doctor-details-container"></div>
+
+        <!-- حالة لم يتم العثور على الطبيب -->
+        <div id="doctor-not-found-box" class="empty-state" style="display:none;">
+          <div class="empty-state-icon">
+            <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+          </div>
+          <h2 class="empty-state-title" data-i18n="doctorDetailsPage.doctorNotFoundTitle">لم نتمكن من العثور على الطبيب</h2>
+          <p class="empty-state-desc" data-i18n="doctorDetailsPage.doctorNotFoundDesc">يبدو أن رابط الطبيب غير صحيح أو تم تحديث الصفحة.</p>
+          <a href="./doctors.html" class="btn btn-primary" data-i18n="doctorDetailsPage.returnDoctors">تصفح قائمة الأطباء</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+</body>
+</html>

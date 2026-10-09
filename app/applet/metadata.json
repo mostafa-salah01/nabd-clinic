@@ -1,0 +1,8 @@
+{
+  "name": "Nabd Clinic - عيادة نبض الطبية",
+  "description": "Bilingual (Arabic / English) modern medical clinic and doctor appointment booking platform featuring multi-specialty care, specialist profiles, real-time schedule booking, and patient records.",
+  "permissions": [],
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

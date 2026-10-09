@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>نصائح وإرشادات صحية | نبض للرعاية الطبية</title>
+  <meta name="description" content="مقالات طبية توعوية موثوقة بقلم استشاريي مركز نبض: صحة القلب، داء السكري، تغذية الرضع، العناية بالبشرة، والوقاية من آلام المفاصل.">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="نصائح وإرشادات صحية | نبض للرعاية الطبية">
+  <meta property="og:description" content="تثقيف صحي شامل ومقالات طبية كتبها استشاريونا لأسرتك.">
+  <meta property="og:image" content="./images/logo-icon.png">
+  <meta property="og:site_name" content="نبض للرعاية الطبية">
+
+  <link rel="icon" type="image/png" href="./images/logo-icon.png">
+  <link rel="stylesheet" href="./css/style.css">
+
+  <script src="./js/data.js"></script>
+  <script src="./js/main.js" defer></script>
+</head>
+<body>
+
+  <div id="site-header"></div>
+
+  <main id="main-content">
+    <section class="page-banner" aria-label="Page Banner">
+      <img src="./images/banner.jpg" alt="النصائح الصحية" class="page-banner-bg" fetchpriority="high" onerror="window.handleImageError(this)">
+      <div class="container page-banner-content">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="./index.html" data-i18n="nav.home">الرئيسية</a>
+          <span>/</span>
+          <span data-i18n="nav.blog">نصائح صحية</span>
+        </nav>
+        <h1 class="page-banner-title" data-i18n="blogPage.title">نصائح وإرشادات صحية موثوقة</h1>
+        <p class="page-banner-desc" data-i18n="blogPage.subtitle">مقالات طبية عامة كتبها استشاريونا لتزويدك بالمعلومات الموثوقة لصحتك وصحة أسرتك.</p>
+      </div>
+    </section>
+
+    <section class="section section-light">
+      <div class="container">
+        <!-- شبكة المقالات الست تُحقن بـ JS والمودال مدمج -->
+        <div class="articles-grid" id="articles-grid"></div>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+</body>
+</html>

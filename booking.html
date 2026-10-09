@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>حجز موعد طبي | نبض للرعاية الطبية</title>
+  <meta name="description" content="احجز استشارتك الطبية بسهولة في 4 خطوات بسيطة مع نخبة الأطباء في مركز نبض: كشف بالعيادة، استشارة فيديو، أو مكالمة هاتفية فورية.">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="حجز موعد طبي | نبض للرعاية الطبية">
+  <meta property="og:description" content="حجز فوري ومؤكد مع استشاريي مركز نبض للرعاية الطبية.">
+  <meta property="og:image" content="./images/logo-icon.png">
+  <meta property="og:site_name" content="نبض للرعاية الطبية">
+
+  <link rel="icon" type="image/png" href="./images/logo-icon.png">
+  <link rel="stylesheet" href="./css/style.css">
+
+  <script src="./js/data.js"></script>
+  <script src="./js/main.js" defer></script>
+</head>
+<body>
+
+  <div id="site-header"></div>
+
+  <main id="main-content">
+    <section class="page-banner" aria-label="Page Banner">
+      <img src="./images/banner.jpg" alt="حجز موعد" class="page-banner-bg" fetchpriority="high" onerror="window.handleImageError(this)">
+      <div class="container page-banner-content">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="./index.html" data-i18n="nav.home">الرئيسية</a>
+          <span>/</span>
+          <span data-i18n="nav.booking">احجز الآن</span>
+        </nav>
+        <h1 class="page-banner-title" data-i18n="bookingPage.title">احجز استشارتك الطبية بسهولة</h1>
+        <p class="page-banner-desc" data-i18n="bookingPage.subtitle">خطوات سريعة لحجز كشفك في العيادة أو استشارة أونلاين وتأكيد موعدك فوراً.</p>
+      </div>
+    </section>
+
+    <section class="section section-light">
+      <div class="container-narrow">
+        <div class="booking-wizard" id="booking-wizard-wrapper">
+          <!-- شريط خطوات المعالج -->
+          <div class="wizard-steps-header">
+            <div class="wizard-step-tab active" data-step="1">
+              <span class="step-num-bubble">1</span>
+              <span data-i18n="bookingPage.step1">1. الطبيب والنوع</span>
+            </div>
+            <div class="wizard-step-tab" data-step="2">
+              <span class="step-num-bubble">2</span>
+              <span data-i18n="bookingPage.step2">2. اليوم والوقت</span>
+            </div>
+            <div class="wizard-step-tab" data-step="3">
+              <span class="step-num-bubble">3</span>
+              <span data-i18n="bookingPage.step3">3. بيانات المريض</span>
+            </div>
+            <div class="wizard-step-tab" data-step="4">
+              <span class="step-num-bubble">4</span>
+              <span data-i18n="bookingPage.step4">4. المراجعة والتأكيد</span>
+            </div>
+          </div>
+
+          <!-- جسم المعالج -->
+          <div class="wizard-body">
+            <!-- ================= الخطوة 1: التخصص والطبيب والنوع ================= -->
+            <div class="wizard-step-content active" id="wizard-step-1">
+              <div class="form-group" style="margin-bottom:20px;">
+                <label for="booking-specialty-select" class="form-label" data-i18n="bookingPage.chooseSpecialty">التخصص الطبي المطلوب</label>
+                <select id="booking-specialty-select" class="form-select">
+                  <!-- يُحقن بـ JS -->
+                </select>
+              </div>
+
+              <div class="form-group" style="margin-bottom:28px;">
+                <label for="booking-doctor-select" class="form-label" data-i18n="bookingPage.chooseDoctor">اختر الطبيب المعالج</label>
+                <select id="booking-doctor-select" class="form-select">
+                  <!-- يُحقن بـ JS -->
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" data-i18n="bookingPage.chooseType">نوع الاستشارة</label>
+                <div class="type-radio-grid">
+                  <div class="type-radio-card active" data-type="clinic">
+                    <div class="type-icon">
+                      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><line x1="9" y1="22" x2="9" y2="2"></line></svg>
+                    </div>
+                    <span class="type-radio-title">كشف بالعيادة</span>
+                    <span style="font-size:0.8rem;color:var(--text-muted);margin-bottom:8px;">فحص سريري في المركز</span>
+                    <span class="type-radio-price">350 ج.م</span>
+                  </div>
+
+                  <div class="type-radio-card" data-type="video">
+                    <div class="type-icon">
+                      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
+                    </div>
+                    <span class="type-radio-title">استشارة فيديو</span>
+                    <span style="font-size:0.8rem;color:var(--text-muted);margin-bottom:8px;">مكالمة HD مشفرة من المنزل</span>
+                    <span class="type-radio-price">250 ج.م</span>
+                  </div>
+
+                  <div class="type-radio-card" data-type="phone">
+                    <div class="type-icon">
+                      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                    </div>
+                    <span class="type-radio-title">استشارة هاتفية</span>
+                    <span style="font-size:0.8rem;color:var(--text-muted);margin-bottom:8px;">مكالمة لمراجعة التحاليل</span>
+                    <span class="type-radio-price">180 ج.م</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="wizard-footer" style="justify-content:flex-end;">
+                <button type="button" class="btn btn-primary" id="to-step-2-btn">
+                  <span data-i18n="bookingPage.nextStep">المتابعة للخطوة التالية</span>
+                  <svg class="dir-flip" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- ================= الخطوة 2: اليوم والوقت ================= -->
+            <div class="wizard-step-content" id="wizard-step-2" style="display:none;">
+              <h3 style="font-size:1.15rem;font-weight:800;color:var(--navy);margin-bottom:14px;" data-i18n="bookingPage.chooseDate">اختر تاريخ الموعد (الأسبوعان القادمان)</h3>
+              <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:14px;">يوم الجمعة مخصص للطوارئ فقط ومُعطّل في الحجز المسبق.</p>
+              
+              <div class="schedule-days-row" id="booking-calendar-days">
+                <!-- يُحقن بـ JS -->
+              </div>
+
+              <h3 style="font-size:1.15rem;font-weight:800;color:var(--navy);margin-top:24px;margin-bottom:14px;" data-i18n="bookingPage.chooseTime">اختر الوقت المتاح</h3>
+              <div class="slots-grid" id="booking-calendar-slots">
+                <!-- يُحقن بـ JS -->
+              </div>
+
+              <div class="wizard-footer">
+                <button type="button" class="btn btn-outline" id="back-to-step-1-btn">
+                  <svg class="dir-flip" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                  <span data-i18n="bookingPage.prevStep">الخطوة السابقة</span>
+                </button>
+                <button type="button" class="btn btn-primary" id="to-step-3-btn">
+                  <span data-i18n="bookingPage.nextStep">المتابعة للخطوة التالية</span>
+                  <svg class="dir-flip" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- ================= الخطوة 3: بيانات المريض ================= -->
+            <div class="wizard-step-content" id="wizard-step-3" style="display:none;">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px;">
+                <div class="form-group">
+                  <label for="patient-name-input" class="form-label" data-i18n="bookingPage.patientName">اسم المريض ثلاثي *</label>
+                  <input type="text" id="patient-name-input" class="form-control" placeholder="مثال: أحمد محمد علي" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="patient-phone-input" class="form-label" data-i18n="bookingPage.patientPhone">رقم الهاتف المحمول (مصر) *</label>
+                  <input type="tel" id="patient-phone-input" class="form-control" placeholder="01012345678" required>
+                  <span style="font-size:0.75rem;color:var(--text-muted);" data-i18n="bookingPage.patientPhoneHelp">مثال: 01012345678 أو 011 / 012 / 015</span>
+                </div>
+              </div>
+
+              <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:20px;margin-bottom:20px;">
+                <div class="form-group">
+                  <label for="patient-email-input" class="form-label" data-i18n="bookingPage.patientEmail">البريد الإلكتروني (لتلقي الروشتة والإشعار)</label>
+                  <input type="email" id="patient-email-input" class="form-control" placeholder="patient@example.com">
+                </div>
+
+                <div class="form-group">
+                  <label for="patient-age-input" class="form-label" data-i18n="bookingPage.patientAge">العمر (بالسنوات) *</label>
+                  <input type="number" id="patient-age-input" class="form-control" placeholder="30" min="0" max="120" required>
+                </div>
+              </div>
+
+              <div class="form-group" style="margin-bottom:24px;">
+                <label for="patient-notes-input" class="form-label" data-i18n="bookingPage.patientNotes">الشكوى الطبية أو ملاحظات إضافية (اختياري)</label>
+                <textarea id="patient-notes-input" class="form-control" rows="3" placeholder="اكتب بإيجاز الأعراض أو الغرض من الزيارة لمساعدة الطبيب..." data-i18n-placeholder="bookingPage.patientNotesPlaceholder"></textarea>
+              </div>
+
+              <div class="wizard-footer">
+                <button type="button" class="btn btn-outline" id="back-to-step-2-btn">
+                  <svg class="dir-flip" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                  <span data-i18n="bookingPage.prevStep">الخطوة السابقة</span>
+                </button>
+                <button type="button" class="btn btn-primary" id="to-step-4-btn">
+                  <span data-i18n="bookingPage.nextStep">المراجعة والتأكيد</span>
+                  <svg class="dir-flip" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- ================= الخطوة 4: المراجعة والتأكيد ================= -->
+            <div class="wizard-step-content" id="wizard-step-4" style="display:none;">
+              <div class="booking-summary-box">
+                <h3 style="font-size:1.25rem;font-weight:800;color:var(--navy);margin-bottom:20px;" data-i18n="bookingPage.summaryTitle">ملخص بيانات حجزك</h3>
+                
+                <div class="summary-rows-list">
+                  <div class="summary-row">
+                    <span class="summary-label" data-i18n="bookingPage.doctorLabel">الطبيب:</span>
+                    <span class="summary-val" id="sum-doctor">-</span>
+                  </div>
+                  <div class="summary-row">
+                    <span class="summary-label" data-i18n="bookingPage.specialtyLabel">التخصص:</span>
+                    <span class="summary-val" id="sum-specialty">-</span>
+                  </div>
+                  <div class="summary-row">
+                    <span class="summary-label" data-i18n="bookingPage.typeLabel">نوع الكشف:</span>
+                    <span class="summary-val" id="sum-type">-</span>
+                  </div>
+                  <div class="summary-row">
+                    <span class="summary-label" data-i18n="bookingPage.dateLabel">تاريخ الموعد:</span>
+                    <span class="summary-val" id="sum-date">-</span>
+                  </div>
+                  <div class="summary-row">
+                    <span class="summary-label" data-i18n="bookingPage.timeLabel">الوقت المحدد:</span>
+                    <span class="summary-val" id="sum-time">-</span>
+                  </div>
+                  <div class="summary-row">
+                    <span class="summary-label" data-i18n="bookingPage.nameLabel">اسم المريض:</span>
+                    <span class="summary-val" id="sum-name">-</span>
+                  </div>
+                  <div class="summary-row">
+                    <span class="summary-label" data-i18n="bookingPage.phoneLabel">الهاتف:</span>
+                    <span class="summary-val" id="sum-phone">-</span>
+                  </div>
+                  <div class="summary-row">
+                    <span class="summary-label" data-i18n="bookingPage.emailLabel">البريد:</span>
+                    <span class="summary-val" id="sum-email">-</span>
+                  </div>
+                  <div class="summary-row">
+                    <span class="summary-label" data-i18n="bookingPage.ageLabel">العمر:</span>
+                    <span class="summary-val" id="sum-age">-</span>
+                  </div>
+                  <div class="summary-row">
+                    <span class="summary-label" data-i18n="bookingPage.notesLabel">الملاحظات:</span>
+                    <span class="summary-val" id="sum-notes">-</span>
+                  </div>
+                  <div class="summary-row" style="border-bottom:none;padding-top:10px;">
+                    <span class="summary-label" style="font-size:1.1rem;color:var(--navy);" data-i18n="bookingPage.feeLabel">قيمة الكشف:</span>
+                    <span class="summary-total-fee" id="sum-fee">-</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="wizard-footer">
+                <button type="button" class="btn btn-outline" id="back-to-step-3-btn">
+                  <svg class="dir-flip" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                  <span data-i18n="bookingPage.prevStep">الخطوة السابقة</span>
+                </button>
+                <button type="button" class="btn btn-primary btn-lg" id="confirm-booking-final-btn">
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span data-i18n="bookingPage.confirmBooking">تأكيد الحجز النهائي</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- ================= شاشة النجاح ================= -->
+            <div class="booking-success-box" id="wizard-step-success" style="display:none;">
+              <div class="success-check-bubble">
+                <svg viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </div>
+              <h2 style="font-size:1.8rem;font-weight:800;color:var(--navy);margin-bottom:8px;" data-i18n="bookingPage.successTitle">تم تأكيد حجزك بنجاح!</h2>
+              <p style="font-size:1rem;color:var(--text-muted);max-width:540px;margin-inline:auto;" data-i18n="bookingPage.successSubtitle">سعداء بخدمتك! تم حفظ موعدك برقم الحجز أدناه، ويسعدنا استقبالك في الموعد المحدد.</p>
+
+              <div class="success-ref-ticket">
+                <span style="display:block;font-size:0.85rem;font-weight:700;color:var(--teal-dark);" data-i18n="bookingPage.refNumberLabel">رقم الحجز المرجعي:</span>
+                <span class="ref-code-text" id="success-ref-code">NB-2026-0001</span>
+              </div>
+
+              <div style="display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:20px;">
+                <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn-primary" id="success-whatsapp-btn" style="background-color:#25D366;border-color:#25D366;">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                  <span data-i18n="bookingPage.sendWhatsApp">أرسل تفاصيل الحجز عبر واتساب</span>
+                </a>
+
+                <a href="./my-bookings.html" class="btn btn-secondary">
+                  <span data-i18n="bookingPage.viewMyBookings">عرض حجوزاتي المحفوظة</span>
+                </a>
+
+                <a href="./booking.html" class="btn btn-outline">
+                  <span data-i18n="bookingPage.bookAnother">حجز موعد آخر</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+</body>
+</html>

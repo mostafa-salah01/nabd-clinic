@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>التخصصات والخدمات الطبية | نبض للرعاية الطبية</title>
+  <meta name="description" content="تصفح العيادات التخصصية في مركز نبض: باطنة، قلب، أطفال، نساء وتوليد، جلدية، عظام، أسنان، وعيون. خدمات تشخيصية وفحوصات متقدمة.">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="التخصصات والخدمات الطبية | نبض للرعاية الطبية">
+  <meta property="og:description" content="عيادات تخصصية شاملة بإشراف نخبة الاستشاريين في مركز نبض.">
+  <meta property="og:image" content="./images/logo-icon.png">
+  <meta property="og:site_name" content="نبض للرعاية الطبية">
+
+  <link rel="icon" type="image/png" href="./images/logo-icon.png">
+  <link rel="stylesheet" href="./css/style.css">
+
+  <script src="./js/data.js"></script>
+  <script src="./js/main.js" defer></script>
+</head>
+<body>
+
+  <div id="site-header"></div>
+
+  <main id="main-content">
+    <section class="page-banner" aria-label="Page Banner">
+      <img src="./images/banner.jpg" alt="التخصصات الطبية" class="page-banner-bg" fetchpriority="high" onerror="window.handleImageError(this)">
+      <div class="container page-banner-content">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="./index.html" data-i18n="nav.home">الرئيسية</a>
+          <span>/</span>
+          <span data-i18n="nav.specialties">التخصصات</span>
+        </nav>
+        <h1 class="page-banner-title" data-i18n="specialtiesSection.title">رعاية شاملة تغطي كافة احتياجات أسرتك</h1>
+        <p class="page-banner-desc" data-i18n="specialtiesSection.subtitle">اختر التخصص المطلوب للاطلاع على قائمة الأطباء المتاحين وحجز موعدك بسهولة.</p>
+      </div>
+    </section>
+
+    <section class="section section-light">
+      <div class="container">
+        <!-- يُحقن محتوى التخصصات الثمانية عبر JavaScript -->
+        <div id="all-specialties-container"></div>
+      </div>
+    </section>
+
+    <!-- بانر CTA -->
+    <div class="container">
+      <section class="cta-banner-wrap" aria-label="Call to Action">
+        <img src="./images/cta-bg.jpg" alt="احجز موعدك" class="cta-bg-img" loading="lazy" onerror="window.handleImageError(this)">
+        <div class="cta-overlay"></div>
+        <div class="cta-inner">
+          <h2 class="cta-title" data-i18n="ctaSection.title">صحتك وراحة بالك تستحق أفضل رعاية طبية</h2>
+          <p class="cta-subtitle" data-i18n="ctaSection.subtitle">لا تؤجل الاطمئنان على صحتك وصحة أسرتك. احجز موعدك الآن مع استشاري متخصص في دقائق معدودة.</p>
+          <a href="./booking.html" class="btn btn-primary btn-lg" data-i18n="ctaSection.button">احجز موعدك الآن</a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <div id="site-footer"></div>
+
+</body>
+</html>

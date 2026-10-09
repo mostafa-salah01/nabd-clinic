@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الأسئلة الشائعة | نبض للرعاية الطبية</title>
+  <meta name="description" content="إجابات وافية على كافة الأسئلة الشائعة حول حجز المواعيد، استشارات الفيديو أونلاين، سياسات التأمين الصحي، وطرق الدفع في مركز نبض.">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="الأسئلة الشائعة | نبض للرعاية الطبية">
+  <meta property="og:description" content="كل ما تحتاج معرفته عن الحجز والاستشارات وسياسات المركز.">
+  <meta property="og:image" content="./images/logo-icon.png">
+  <meta property="og:site_name" content="نبض للرعاية الطبية">
+
+  <link rel="icon" type="image/png" href="./images/logo-icon.png">
+  <link rel="stylesheet" href="./css/style.css">
+
+  <!-- Schema.org FAQPage Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "كيف يمكنني حجز موعد كشف أو استشارة مع الطبيب؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "يمكنك الحجز بسهولة عبر موقعنا في 4 خطوات بسيطة: اختر التخصص والطبيب ونوع الاستشارة، ثم حدد اليوم والوقت المناسب، وأدخل بياناتك لتأكيد الحجز فورياً."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "هل يمكنني تعديل موعدي أو إلغاؤه لاحقاً؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "نعم بكل تأكيد. يمكنك الدخول إلى صفحة 'حجوزاتي' في أي وقت لإلغاء الموعد أو إعادة جدولته مجاناً."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <script src="./js/data.js"></script>
+  <script src="./js/main.js" defer></script>
+</head>
+<body>
+
+  <div id="site-header"></div>
+
+  <main id="main-content">
+    <section class="page-banner" aria-label="Page Banner">
+      <img src="./images/banner.jpg" alt="الأسئلة الشائعة" class="page-banner-bg" fetchpriority="high" onerror="window.handleImageError(this)">
+      <div class="container page-banner-content">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="./index.html" data-i18n="nav.home">الرئيسية</a>
+          <span>/</span>
+          <span data-i18n="nav.faq">الأسئلة الشائعة</span>
+        </nav>
+        <h1 class="page-banner-title" data-i18n="faqPage.title">الأسئلة الشائعة والأكثر تكراراً</h1>
+        <p class="page-banner-desc" data-i18n="faqPage.subtitle">كل ما تحتاج معرفته حول آليات الحجز، استشارات الفيديو، سياسات التأمين، وخدمات المركز.</p>
+      </div>
+    </section>
+
+    <section class="section section-light">
+      <div class="container-narrow">
+        <!-- قائمة الأكورديون تُحقن بـ JavaScript -->
+        <div class="faq-list" id="faq-accordion-list"></div>
+
+        <div style="background-color:var(--white);border-radius:var(--radius-lg);padding:32px;margin-top:48px;text-align:center;border:1px solid var(--border-light);box-shadow:var(--shadow-sm);">
+          <h3 style="font-size:1.25rem;font-weight:800;color:var(--navy);margin-bottom:8px;" data-i18n="faqPage.stillHaveQuestions">هل لديك استفسار آخر لم تجد إجابته هنا؟</h3>
+          <p style="color:var(--text-muted);margin-bottom:20px;">فريق خدمة العملاء الطبي متاح للرد على استفساراتكم عبر الواتساب أو الهاتف المباشر.</p>
+          <div style="display:flex;justify-content:center;gap:14px;flex-wrap:wrap;">
+            <a href="./contact.html" class="btn btn-primary" data-i18n="faqPage.contactSupport">تواصل مع فريق الدعم الطبي</a>
+            <a href="https://wa.me/201234567890" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
+              محادثة واتساب فورية
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+</body>
+</html>

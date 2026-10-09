@@ -1,0 +1,8 @@
+{
+  "name": "نبض للرعاية الطبية - Nabd Medical Care",
+  "description": "منصة حجز الاستشارات والكشف الطبي لمركز نبض للرعاية الطبية مع دعم كامل للغتين العربية والإنجليزية وتجربة مستخدم متكاملة.",
+  "permissions": [],
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
