@@ -90,7 +90,7 @@
   </div>
 
   <main id="main-content">
-    <!-- 1) الهيرو الرئيسي مع السلايدر وشريط الحجز السريع -->
+    <!-- 1) الهيرو الرئيسي مع السلايدر -->
     <section class="hero-section" aria-label="Hero Banner">
       <div class="hero-slider-wrap">
         <div class="hero-slide active">
@@ -109,7 +109,7 @@
           <p class="hero-subtitle" data-i18n="hero.subtitle">نجمع لك نخبة من كبار الاستشاريين في 12 تخصصاً دقيقاً مع خيارات حجز مرنة: كشف بالعيادة، استشارة فيديو أونلاين، أو مكالمة هاتفية سريعة.</p>
           <div class="hero-actions">
             <a href="./booking.html" class="btn btn-primary btn-lg">
-              <span data-i18n="hero.ctaBook">احجز استشارتك الآن</span>
+              <span data-i18n="hero.ctaBook">اطلب موعدك الآن</span>
             </a>
             <a href="./doctors.html" class="btn btn-white btn-lg">
               <span data-i18n="hero.ctaDoctors">تصفح نخبة الأطباء</span>
@@ -117,7 +117,17 @@
           </div>
         </div>
 
-        <!-- شريط الحجز السريع -->
+        <!-- مؤشرات السلايدر -->
+        <div class="hero-slider-dots">
+          <button type="button" class="hero-dot active" aria-label="Slide 1"></button>
+          <button type="button" class="hero-dot" aria-label="Slide 2"></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- شريط الحجز السريع المتموضع تحت الهيرو بدون حجب الصورة -->
+    <section class="hero-quickbar-section" aria-label="Quick Booking Bar">
+      <div class="container">
         <div class="hero-quick-bar">
           <div class="quick-bar-title">
             <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
@@ -142,12 +152,6 @@
               </button>
             </div>
           </div>
-        </div>
-
-        <!-- مؤشرات السلايدر -->
-        <div class="hero-slider-dots">
-          <button type="button" class="hero-dot active" aria-label="Slide 1"></button>
-          <button type="button" class="hero-dot" aria-label="Slide 2"></button>
         </div>
       </div>
     </section>
@@ -334,13 +338,13 @@
     <!-- 10) بانر CTA بخلفية cta-bg.jpg -->
     <div class="container">
       <section class="cta-banner-wrap" aria-label="Call to Action">
-        <img src="./images/cta-bg.jpg" alt="احجز موعدك في مركز نبض" class="cta-bg-img" loading="lazy" onerror="window.handleImageError(this)">
+        <img src="./images/cta-bg.jpg" alt="اطلب موعدك في مركز نبض" class="cta-bg-img" loading="lazy" onerror="window.handleImageError(this)">
         <div class="cta-overlay"></div>
         <div class="cta-inner">
           <h2 class="cta-title" data-i18n="ctaSection.title">صحتك وراحة بالك تستحق أفضل رعاية طبية</h2>
-          <p class="cta-subtitle" data-i18n="ctaSection.subtitle">لا تؤجل الاطمئنان على صحتك وصحة أسرتك. احجز موعدك الآن مع استشاري متخصص في دقائق معدودة.</p>
+          <p class="cta-subtitle" data-i18n="ctaSection.subtitle">لا تؤجل الاطمئنان على صحتك وصحة أسرتك. اطلب موعدك الآن مع استشاري متخصص في دقائق معدودة.</p>
           <a href="./booking.html" class="btn btn-primary btn-lg">
-            <span data-i18n="ctaSection.button">احجز موعدك الآن</span>
+            <span data-i18n="ctaSection.button">اطلب موعدك الآن</span>
           </a>
         </div>
       </section>

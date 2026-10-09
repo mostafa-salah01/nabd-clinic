@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "node server.js",
     "build": "node -e \"console.log('Build OK')\"",
+    "lint": "node --check server.js js/data.js js/main.js",
     "start": "node server.js"
   },
   "dependencies": {}

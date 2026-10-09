@@ -1,48 +1,45 @@
 /**
  * نبض للرعاية الطبية - Nabd Medical Care
  * المحرك البرمجي الأساسي (main.js)
- * يدعم الترجمة، الهيدر والفوتر الموحدين، الحجز التفاعلي، الفلاتر، السلايدر، والعدادات
+ * يدعم الترجمة، الهيدر والفوتر الموحدين، شريط الطوارئ المضغوط، السلايدر، والطلب التفاعلي للمواعيد
  */
 
 (function () {
   'use strict';
 
-  // --- أيقونات SVG خطية مدمجة ---
+  // --- أيقونات SVG خطية مدمجة بأحجام قياسية ---
   const ICONS = {
-    phone: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>`,
-    emergency: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M19.07 4.93L4.93 19.07"></path></svg>`,
-    clock: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>`,
-    mail: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>`,
-    mapPin: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>`,
-    whatsapp: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>`,
-    star: `<svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>`,
-    arrowRight: `<svg class="dir-flip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>`,
-    arrowLeft: `<svg class="dir-flip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>`,
-    check: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`,
-    chevronDown: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>`,
-    calendar: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>`,
-    user: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>`,
-    shield: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>`,
-    search: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>`,
-    zoom: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>`,
-    close: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`,
-    up: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>`,
-    // أيقونات التخصصات الطبية
-    internal: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v6m0 8v6M4.93 4.93l4.24 4.24m5.66 5.66l4.24 4.24M2 12h6m8 0h6M4.93 19.07l4.24-4.24m5.66-5.66l4.24-4.24"></path><circle cx="12" cy="12" r="3"></circle></svg>`,
-    heart: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>`,
-    baby: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"></circle><path d="M4 20c0-4 4-6 8-6s8 2 8 6"></path><path d="M9 7h.01M15 7h.01M12 11c-1 0-1.5-.5-1.5-.5"></path></svg>`,
-    female: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"></circle><line x1="12" y1="15" x2="12" y2="22"></line><line x1="9" y1="18" x2="15" y2="18"></line></svg>`,
-    skin: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg>`,
-    bone: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="6" r="3"></circle><circle cx="18" cy="18" r="3"></circle><line x1="6" y1="9" x2="6" y2="15"></line><line x1="18" y1="9" x2="18" y2="15"></line><line x1="6" y1="12" x2="18" y2="12"></line></svg>`,
-    tooth: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3C4 5 4 9 5 12c1 3 2 9 3 9 2 0 2-4 4-4s2 4 4 4c1 0 2-6 3-9 1-3 1-7-2-9-3-2-5 0-5 0s-2-2-5 0z"></path></svg>`,
-    eye: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>`,
-    // أيقونات أنواع الاستشارات
-    building: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><line x1="9" y1="22" x2="9" y2="2"></line><line x1="8" y1="6" x2="8.01" y2="6"></line><line x1="16" y1="6" x2="16.01" y2="6"></line><line x1="8" y1="10" x2="8.01" y2="10"></line><line x1="16" y1="10" x2="16.01" y2="10"></line><line x1="8" y1="14" x2="8.01" y2="14"></line><line x1="16" y1="14" x2="16.01" y2="14"></line><line x1="8" y1="18" x2="8.01" y2="18"></line><line x1="16" y1="18" x2="16.01" y2="18"></line></svg>`,
-    video: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>`,
-    share: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>`
+    phone: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>`,
+    emergency: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M19.07 4.93L4.93 19.07"></path></svg>`,
+    clock: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>`,
+    mail: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>`,
+    mapPin: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>`,
+    whatsapp: `<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>`,
+    star: `<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>`,
+    arrowRight: `<svg class="dir-flip" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>`,
+    check: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`,
+    chevronDown: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>`,
+    calendar: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>`,
+    user: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>`,
+    shield: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>`,
+    search: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>`,
+    zoom: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>`,
+    close: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`,
+    up: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>`,
+    // التخصصات
+    internal: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v6m0 8v6M4.93 4.93l4.24 4.24m5.66 5.66l4.24 4.24M2 12h6m8 0h6M4.93 19.07l4.24-4.24m5.66-5.66l4.24-4.24"></path><circle cx="12" cy="12" r="3"></circle></svg>`,
+    heart: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>`,
+    baby: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"></circle><path d="M4 20c0-4 4-6 8-6s8 2 8 6"></path><path d="M9 7h.01M15 7h.01M12 11c-1 0-1.5-.5-1.5-.5"></path></svg>`,
+    female: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"></circle><line x1="12" y1="15" x2="12" y2="22"></line><line x1="9" y1="18" x2="15" y2="18"></line></svg>`,
+    skin: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg>`,
+    bone: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="6" r="3"></circle><circle cx="18" cy="18" r="3"></circle><line x1="6" y1="9" x2="6" y2="15"></line><line x1="18" y1="9" x2="18" y2="15"></line><line x1="6" y1="12" x2="18" y2="12"></line></svg>`,
+    tooth: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3C4 5 4 9 5 12c1 3 2 9 3 9 2 0 2-4 4-4s2 4 4 4c1 0 2-6 3-9 1-3 1-7-2-9-3-2-5 0-5 0s-2-2-5 0z"></path></svg>`,
+    eye: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>`,
+    // الاستشارات
+    building: `<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><line x1="9" y1="22" x2="9" y2="2"></line><line x1="8" y1="6" x2="8.01" y2="6"></line><line x1="16" y1="6" x2="16.01" y2="6"></line><line x1="8" y1="10" x2="8.01" y2="10"></line><line x1="16" y1="10" x2="16.01" y2="10"></line><line x1="8" y1="14" x2="8.01" y2="14"></line><line x1="16" y1="14" x2="16.01" y2="14"></line><line x1="8" y1="18" x2="8.01" y2="18"></line><line x1="16" y1="18" x2="16.01" y2="18"></line></svg>`,
+    video: `<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>`
   };
 
-  // --- إدارة اللغة الحالية ---
   function getLang() {
     return localStorage.getItem('nabd_lang') || 'ar';
   }
@@ -77,41 +74,10 @@
     return `${formatNumber(amount)} ${curr}`;
   }
 
-  function getSavedBookings() {
-    try {
-      const data = localStorage.getItem('nabd_bookings');
-      return data ? JSON.parse(data) : [];
-    } catch (e) {
-      return [];
-    }
-  }
-
-  function saveBookings(bookings) {
-    localStorage.setItem('nabd_bookings', JSON.stringify(bookings));
-    updateNavBookingsCount();
-  }
-
-  function updateNavBookingsCount() {
-    const badge = document.getElementById('nav-bookings-count');
-    const badgeDrawer = document.getElementById('nav-bookings-count-drawer');
-    const bookings = getSavedBookings();
-    const activeCount = bookings.filter(b => b.status === 'confirmed').length;
-    if (badge) {
-      badge.textContent = activeCount;
-      badge.style.display = activeCount > 0 ? 'inline-block' : 'none';
-    }
-    if (badgeDrawer) {
-      badgeDrawer.textContent = activeCount;
-      badgeDrawer.style.display = activeCount > 0 ? 'inline-block' : 'none';
-    }
-  }
-
-  // --- ترجمة النصوص في المستند ---
   function applyLanguage(lang) {
     document.documentElement.lang = lang;
     document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
 
-    // ترجمة النصوص ذات الوسم data-i18n
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const key = el.getAttribute('data-i18n');
       const val = t(key);
@@ -120,7 +86,6 @@
       }
     });
 
-    // ترجمة placeholders
     document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
       const key = el.getAttribute('data-i18n-placeholder');
       const val = t(key);
@@ -129,7 +94,6 @@
       }
     });
 
-    // ترجمة titles
     document.querySelectorAll('[data-i18n-title]').forEach(el => {
       const key = el.getAttribute('data-i18n-title');
       const val = t(key);
@@ -138,13 +102,12 @@
       }
     });
 
-    // إعادة رسم الهيدر والفوتر والأجزاء التفاعلية
     renderHeader();
     renderFooter();
     reRenderActivePage();
   }
 
-  // --- الهيدر الموحد لجميع الصفحات ---
+  // --- الهيدر وشريط الطوارئ المضغوط (36-40px) ---
   function renderHeader() {
     const headerEl = document.getElementById('site-header');
     if (!headerEl) return;
@@ -155,33 +118,42 @@
 
     const isCurrent = (file) => (pageName === file || (file === 'index.html' && (pageName === '' || pageName === '/'))) ? 'active' : '';
 
-    const langBtnText = lang === 'ar' ? 'English' : 'عربي';
+    const langBtnTextFull = lang === 'ar' ? 'English' : 'عربي';
+    const langBtnTextShort = lang === 'ar' ? 'EN' : 'ع';
     const siteTitle = lang === 'ar' ? CONFIG.clinicNameAr : CONFIG.clinicNameEn;
     const siteSlogan = lang === 'ar' ? 'الرعاية الطبية الموثوقة' : 'Trusted Healthcare';
+    const hoursText = lang === 'ar' ? CONFIG.workingHoursShortAr : CONFIG.workingHoursShortEn;
 
     headerEl.innerHTML = `
-      <!-- الشريط العلوي للطوارئ وساعات العمل -->
+      <!-- الشريط العلوي الاحترافي المضغوط: 36-40px سطر واحد فقط -->
       <div class="site-topbar">
         <div class="container topbar-content">
-          <div class="topbar-emergency">
-            <span class="topbar-pulse"></span>
-            <span>${t('topbar.emergencyHotline')} <strong>${CONFIG.hotline}</strong> (${t('footer.medicalDisclaimer').slice(0, 30)}...)</span>
-          </div>
-          <div class="topbar-info">
-            <span class="topbar-item">
-              ${ICONS.clock}
-              <span>${lang === 'ar' ? CONFIG.workingHoursAr : CONFIG.workingHoursEn}</span>
+          <!-- الطرف الأول: الطوارئ ورقم الهاتف في سطر واحد -->
+          <div class="topbar-contacts">
+            <span class="topbar-emergency">
+              <span class="topbar-pulse"></span>
+              ${ICONS.emergency}
+              <span>${t('topbar.emergencyHotline')} <strong>${CONFIG.hotline}</strong></span>
             </span>
-            <span class="topbar-item">
+            <span class="topbar-sep">•</span>
+            <a href="tel:${CONFIG.phone.replace(/\\s/g, '')}" class="topbar-phone-link">
               ${ICONS.phone}
-              <a href="tel:${CONFIG.phone.replace(/\\s/g, '')}" style="color:var(--mint);font-weight:700;">${CONFIG.phoneDisplay}</a>
+              <span>${CONFIG.phoneDisplay}</span>
+            </a>
+          </div>
+
+          <!-- الطرف الثاني: ساعات العمل المختصرة في سطر واحد -->
+          <div class="topbar-hours-wrap">
+            <span class="topbar-hours">
+              ${ICONS.clock}
+              <span>${hoursText}</span>
             </span>
           </div>
         </div>
       </div>
 
-      <!-- شريط التنقل الرئيسي -->
-      <nav class="site-navbar" aria-label="Main Navigation">
+      <!-- شريط التنقل الرئيسي: 70px ديسكتوب / 60px موبايل -->
+      <nav class="site-navbar" id="site-navbar" aria-label="Main Navigation">
         <div class="nav-container">
           <!-- الشعار واسم المركز -->
           <a href="./index.html" class="brand-link" aria-label="${siteTitle}">
@@ -192,7 +164,7 @@
             </div>
           </a>
 
-          <!-- قائمة الروابط في الشاشات الكبيرة -->
+          <!-- روابط الديسكتوب (بدون حجوزاتي) -->
           <ul class="nav-menu">
             <li><a href="./index.html" class="nav-link ${isCurrent('index.html')}">${t('nav.home')}</a></li>
             <li><a href="./about.html" class="nav-link ${isCurrent('about.html')}">${t('nav.about')}</a></li>
@@ -201,21 +173,15 @@
             <li><a href="./blog.html" class="nav-link ${isCurrent('blog.html')}">${t('nav.blog')}</a></li>
             <li><a href="./faq.html" class="nav-link ${isCurrent('faq.html')}">${t('nav.faq')}</a></li>
             <li><a href="./contact.html" class="nav-link ${isCurrent('contact.html')}">${t('nav.contact')}</a></li>
-            <li>
-              <a href="./my-bookings.html" class="nav-link ${isCurrent('my-bookings.html')}">
-                ${t('nav.myBookings')}
-                <span id="nav-bookings-count" class="nav-badge-count" style="display:none;">0</span>
-              </a>
-            </li>
           </ul>
 
           <!-- أزرار الإجراءات واللغة -->
           <div class="nav-actions">
             <button type="button" class="lang-btn" id="lang-switcher-btn" aria-label="Switch Language">
-              <span>🌐</span>
-              <span>${langBtnText}</span>
+              <span class="lang-text-desktop">${langBtnTextFull}</span>
+              <span class="lang-text-mobile">${langBtnTextShort}</span>
             </button>
-            <a href="./booking.html" class="btn btn-primary btn-sm">
+            <a href="./booking.html" class="btn btn-primary btn-sm nav-cta-btn">
               ${ICONS.calendar}
               <span>${t('nav.booking')}</span>
             </a>
@@ -226,13 +192,12 @@
         </div>
       </nav>
 
-      <!-- القائمة الجانبية للشاشات الصغيرة -->
+      <!-- القائمة الجانبية للشاشات الصغيرة (بدون حجوزاتي) -->
       <div class="drawer-backdrop" id="drawer-backdrop"></div>
       <div class="mobile-drawer" id="mobile-drawer">
         <div class="drawer-header">
           <div class="brand-texts">
-            <span class="brand-title" style="font-size:1.2rem;">${siteTitle}</span>
-            <span class="brand-subtitle">${siteSlogan}</span>
+            <span class="brand-title" style="font-size:1.15rem;">${siteTitle}</span>
           </div>
           <button type="button" class="drawer-close" id="drawer-close-btn" aria-label="Close menu">
             ${ICONS.close}
@@ -246,26 +211,20 @@
           <li><a href="./blog.html" class="drawer-link ${isCurrent('blog.html')}">${t('nav.blog')}</a></li>
           <li><a href="./faq.html" class="drawer-link ${isCurrent('faq.html')}">${t('nav.faq')}</a></li>
           <li><a href="./contact.html" class="drawer-link ${isCurrent('contact.html')}">${t('nav.contact')}</a></li>
-          <li>
-            <a href="./my-bookings.html" class="drawer-link ${isCurrent('my-bookings.html')}">
-              <span>${t('nav.myBookings')}</span>
-              <span id="nav-bookings-count-drawer" class="nav-badge-count" style="display:none;">0</span>
-            </a>
-          </li>
         </ul>
-        <div style="margin-top:auto;display:flex;flex-direction:column;gap:12px;">
+        <div style="margin-top:auto;display:flex;flex-direction:column;gap:12px;padding-top:20px;">
           <a href="./booking.html" class="btn btn-primary btn-block">
             ${ICONS.calendar}
             <span>${t('nav.booking')}</span>
           </a>
           <button type="button" class="btn btn-outline btn-block" id="drawer-lang-btn">
-            🌐 ${langBtnText}
+            🌐 ${langBtnTextFull}
           </button>
         </div>
       </div>
     `;
 
-    // ربط الأحداث
+    // ربط تبديل اللغة
     const langBtn = document.getElementById('lang-switcher-btn');
     const drawerLangBtn = document.getElementById('drawer-lang-btn');
     const toggleLang = () => {
@@ -275,6 +234,7 @@
     if (langBtn) langBtn.addEventListener('click', toggleLang);
     if (drawerLangBtn) drawerLangBtn.addEventListener('click', toggleLang);
 
+    // قائمة الموبايل
     const hamburger = document.getElementById('nav-hamburger-btn');
     const drawer = document.getElementById('mobile-drawer');
     const backdrop = document.getElementById('drawer-backdrop');
@@ -291,10 +251,20 @@
     if (drawerClose) drawerClose.addEventListener('click', () => toggleDrawer(false));
     if (backdrop) backdrop.addEventListener('click', () => toggleDrawer(false));
 
-    updateNavBookingsCount();
+    // تصغير الهيدر وإضافة ظل عند التمرير
+    const navbar = document.getElementById('site-navbar');
+    if (navbar) {
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 25) {
+          navbar.classList.add('scrolled');
+        } else {
+          navbar.classList.remove('scrolled');
+        }
+      });
+    }
   }
 
-  // --- الفوتر الموحد لجميع الصفحات ---
+  // --- الفوتر الموحد (تم حذف رابط حجوزاتي) + الشريط السفلي للموبايل ---
   function renderFooter() {
     const footerEl = document.getElementById('site-footer');
     if (!footerEl) return;
@@ -330,7 +300,7 @@
               </div>
             </div>
 
-            <!-- العمود الثاني: روابط سريعة -->
+            <!-- العمود الثاني: روابط سريعة (بدون حجوزاتي) -->
             <div>
               <h4 class="footer-col-title">${t('footer.quickLinks')}</h4>
               <ul class="footer-links-list">
@@ -339,9 +309,9 @@
                 <li><a href="./specialties.html" class="footer-link">${ICONS.arrowRight} ${t('nav.specialties')}</a></li>
                 <li><a href="./doctors.html" class="footer-link">${ICONS.arrowRight} ${t('nav.doctors')}</a></li>
                 <li><a href="./booking.html" class="footer-link">${ICONS.arrowRight} ${t('nav.booking')}</a></li>
-                <li><a href="./my-bookings.html" class="footer-link">${ICONS.arrowRight} ${t('nav.myBookings')}</a></li>
                 <li><a href="./blog.html" class="footer-link">${ICONS.arrowRight} ${t('nav.blog')}</a></li>
                 <li><a href="./faq.html" class="footer-link">${ICONS.arrowRight} ${t('nav.faq')}</a></li>
+                <li><a href="./contact.html" class="footer-link">${ICONS.arrowRight} ${t('nav.contact')}</a></li>
               </ul>
             </div>
 
@@ -375,7 +345,7 @@
                 </div>
                 <div class="footer-contact-item">
                   ${ICONS.clock}
-                  <span>${lang === 'ar' ? CONFIG.workingHoursAr : CONFIG.workingHoursEn}</span>
+                  <span>${lang === 'ar' ? CONFIG.workingHoursShortAr : CONFIG.workingHoursShortEn}</span>
                 </div>
               </div>
             </div>
@@ -389,7 +359,7 @@
 
           <!-- حقوق النشر -->
           <div class="footer-bottom">
-            <p>${t('footer.copyright')} | <a href="./privacy.html" style="color:var(--mint);text-decoration:underline;" onclick="alert('${lang==='ar'?'البيانات تخزن محلياً فقط':'Data stored in local browser only'}');return false;">Privacy Policy</a></p>
+            <p>${t('footer.copyright')}</p>
           </div>
         </div>
       </footer>
@@ -405,6 +375,22 @@
           ${ICONS.up}
         </button>
       </div>
+
+      <!-- الشريط الثابت السفلي على الموبايل (ارتفاع 56px مع وصول سريع) -->
+      <nav class="mobile-bottom-bar" aria-label="Mobile Quick Actions">
+        <a href="tel:${CONFIG.phone.replace(/\\s/g, '')}" class="mobile-bottom-btn">
+          ${ICONS.phone}
+          <span>${lang === 'ar' ? 'اتصل بنا' : 'Call Us'}</span>
+        </a>
+        <a href="https://wa.me/${CONFIG.whatsappNumber}" target="_blank" rel="noopener noreferrer" class="mobile-bottom-btn mobile-bottom-wa">
+          ${ICONS.whatsapp}
+          <span>${lang === 'ar' ? 'واتساب' : 'WhatsApp'}</span>
+        </a>
+        <a href="./booking.html" class="mobile-bottom-btn mobile-bottom-cta">
+          ${ICONS.calendar}
+          <span>${t('nav.booking')}</span>
+        </a>
+      </nav>
     `;
 
     // زر العودة للأعلى
@@ -431,7 +417,7 @@
       fallback.style.width = '100%';
       fallback.style.height = '100%';
       fallback.style.minHeight = '180px';
-      fallback.innerHTML = `<span style="font-size:1.8rem;opacity:0.8;">🏥 نبض</span>`;
+      fallback.innerHTML = `<span style="font-size:1.6rem;opacity:0.85;">🏥 نبض</span>`;
       parent.appendChild(fallback);
     }
   };
@@ -448,7 +434,7 @@
           const target = parseInt(el.getAttribute('data-target'), 10) || 0;
           const suffix = el.getAttribute('data-suffix') || '';
           let count = 0;
-          const duration = 1800;
+          const duration = 1600;
           const stepTime = 25;
           const steps = duration / stepTime;
           const increment = Math.ceil(target / steps);
@@ -601,7 +587,7 @@
               <span>${doc.rating}</span>
               <span style="color:var(--text-light);font-size:0.78rem;">(${doc.reviewCount})</span>
             </span>
-            <span style="color:var(--text-muted);">${doc.experienceYears} ${t('doctorDetailsPage.experienceYears')}</span>
+            <span style="color:var(--text-muted);font-size:0.85rem;">${doc.experienceYears} ${t('doctorDetailsPage.experienceYears')}</span>
           </div>
           <div class="doctor-price-box">
             <span>${t('featuredDoctors.consultationFrom')} </span>
@@ -680,7 +666,6 @@
       `;
     }).join('');
 
-    // تفعيل Lightbox
     let lightbox = document.getElementById('lightbox-modal');
     if (!lightbox) {
       lightbox = document.createElement('div');
@@ -744,7 +729,7 @@
             <div class="testimonial-avatar">${initials}</div>
             <div>
               <h4 class="testimonial-name">${name}</h4>
-              <span class="testimonial-meta">${city} • عيادة ${spec}</span>
+              <span class="testimonial-meta">${city} • ${spec}</span>
             </div>
           </div>
         </div>
@@ -770,12 +755,10 @@
     const countEl = document.getElementById('results-count-num');
     const emptyState = document.getElementById('doctors-empty-state');
 
-    // قراءة باراميترات الرابط
     const urlParams = new URLSearchParams(window.location.search);
     const initialSpecialty = urlParams.get('specialty') || '';
     const initialType = urlParams.get('type') || '';
 
-    // ملء خيارات التخصص
     if (specialtySelect) {
       specialtySelect.innerHTML = `
         <option value="">${t('hero.allSpecialties')}</option>
@@ -796,7 +779,6 @@
       const sortBy = sortSelect ? sortSelect.value : 'rating';
 
       let results = DOCTORS.filter(doc => {
-        // فلتر البحث بالاسم والتخصص
         if (query) {
           const nameAr = doc.nameAr.toLowerCase();
           const nameEn = doc.nameEn.toLowerCase();
@@ -806,22 +788,12 @@
             return false;
           }
         }
-        // فلتر التخصص
-        if (spec && doc.specialtyId !== spec) {
-          return false;
-        }
-        // فلتر الجنس
-        if (gender && doc.gender !== gender) {
-          return false;
-        }
-        // فلتر متاح اليوم
-        if (availOnly && !doc.availableToday) {
-          return false;
-        }
+        if (spec && doc.specialtyId !== spec) return false;
+        if (gender && doc.gender !== gender) return false;
+        if (availOnly && !doc.availableToday) return false;
         return true;
       });
 
-      // الترتيب
       if (sortBy === 'rating') {
         results.sort((a, b) => b.rating - a.rating);
       } else if (sortBy === 'price-asc') {
@@ -842,7 +814,6 @@
       }
     }
 
-    // ربط الأحداث
     [searchInput, specialtySelect, typeSelect, genderSelect, availableCheck, sortSelect].forEach(el => {
       if (el) el.addEventListener('input', filterAndRender);
       if (el) el.addEventListener('change', filterAndRender);
@@ -893,14 +864,13 @@
     const edu = lang === 'ar' ? doctor.educationAr : doctor.educationEn;
     const langs = lang === 'ar' ? doctor.languagesAr.join('، ') : doctor.languagesEn.join(', ');
 
-    // توليد أيام الأسبوع القادم المتاحة
     const today = new Date();
     const availableDaysList = [];
     for (let i = 1; i <= 7; i++) {
       const d = new Date();
       d.setDate(today.getDate() + i);
-      const dayOfWeek = d.getDay(); // 0 = Sun, 5 = Fri, 6 = Sat
-      if (dayOfWeek === 5) continue; // استبعاد الجمعة
+      const dayOfWeek = d.getDay();
+      if (dayOfWeek === 5) continue;
       if (doctor.scheduleDays.includes(dayOfWeek)) {
         availableDaysList.push({
           dateObj: d,
@@ -917,12 +887,11 @@
 
     container.innerHTML = `
       <div class="doctor-profile-grid">
-        <!-- البطاقة الجانبية الثابتة -->
         <div class="doctor-sticky-card">
           ${imgHtml}
           <div class="doctor-sticky-info">
             <span class="badge-tag">${specName}</span>
-            <h1 class="doctor-name" style="font-size:1.5rem;margin-top:6px;">${name}</h1>
+            <h1 class="doctor-name" style="font-size:1.45rem;margin-top:6px;">${name}</h1>
             <p class="doctor-title-sub">${title}</p>
             <div class="doctor-meta-row">
               <span class="doctor-rating">
@@ -931,7 +900,6 @@
               <span>${doctor.experienceYears} ${t('doctorDetailsPage.experienceYears')}</span>
             </div>
 
-            <!-- تفصيل رسوم الكشف -->
             <div class="fees-breakdown-card">
               <h4 style="font-size:0.92rem;font-weight:800;color:var(--navy);margin-bottom:10px;">${t('doctorDetailsPage.consultationFees')}</h4>
               <div class="fee-row">
@@ -956,24 +924,20 @@
           </div>
         </div>
 
-        <!-- محتوى الطبيب والجدول التفاعلي -->
         <div>
-          <!-- نبذة عن الطبيب -->
           <div class="detail-section-card">
             <h2 class="detail-card-title">${ICONS.user} ${t('doctorDetailsPage.bio')}</h2>
-            <p style="font-size:1.05rem;line-height:1.8;color:var(--text);margin-bottom:18px;">${bio}</p>
-            <div style="font-size:0.95rem;color:var(--text-muted);">
+            <p style="font-size:1.02rem;line-height:1.8;color:var(--text);margin-bottom:16px;">${bio}</p>
+            <div style="font-size:0.92rem;color:var(--text-muted);">
               <strong>${t('doctorDetailsPage.languages')}</strong> ${langs}
             </div>
           </div>
 
-          <!-- المؤهلات والزمالات -->
           <div class="detail-section-card">
             <h2 class="detail-card-title">${ICONS.shield} ${t('doctorDetailsPage.education')}</h2>
-            <p style="font-size:1.02rem;line-height:1.8;color:var(--text);">${edu}</p>
+            <p style="font-size:1rem;line-height:1.8;color:var(--text);">${edu}</p>
           </div>
 
-          <!-- جدول المواعيد التفاعلي للأسبوع القادم -->
           <div class="detail-section-card">
             <h2 class="detail-card-title">${ICONS.calendar} ${t('doctorDetailsPage.scheduleTitle')}</h2>
             
@@ -988,9 +952,7 @@
             </div>
 
             <p style="font-weight:700;color:var(--navy);margin-bottom:12px;">${t('doctorDetailsPage.selectSlot')}</p>
-            <div class="slots-grid" id="schedule-slots-container">
-              <!-- تُحقن الفترات بواسطة JS -->
-            </div>
+            <div class="slots-grid" id="schedule-slots-container"></div>
 
             <div style="margin-top:24px;">
               <button type="button" class="btn btn-primary btn-block btn-lg" id="book-selected-slot-btn" disabled>
@@ -1002,7 +964,6 @@
       </div>
     `;
 
-    // معالجة اختيار اليوم والفترة المتاحة
     let selectedDate = availableDaysList.length ? availableDaysList[0].dateIso : '';
     let selectedSlot = '';
     const slotsContainer = document.getElementById('schedule-slots-container');
@@ -1010,19 +971,14 @@
 
     function renderSlotsForDate(dateIso) {
       if (!slotsContainer) return;
-      const bookedList = getSavedBookings();
       selectedSlot = '';
       if (bookSlotBtn) bookSlotBtn.disabled = true;
 
-      slotsContainer.innerHTML = doctor.timeSlots.map(slot => {
-        // فحص هل الموعد محجوز مسبقاً
-        const isBooked = bookedList.some(b => b.doctorId === doctor.id && b.date === dateIso && b.timeSlot === slot && b.status === 'confirmed');
-        return `
-          <button type="button" class="slot-btn" data-slot="${slot}" ${isBooked ? 'disabled' : ''}>
-            ${slot}
-          </button>
-        `;
-      }).join('');
+      slotsContainer.innerHTML = doctor.timeSlots.map(slot => `
+        <button type="button" class="slot-btn" data-slot="${slot}">
+          ${slot}
+        </button>
+      `).join('');
 
       slotsContainer.querySelectorAll('.slot-btn').forEach(btn => {
         btn.addEventListener('click', () => {
@@ -1055,7 +1011,7 @@
   }
 
   // ==========================================================================
-  // معالج الحجز التفاعلي متعدد الخطوات (booking.html)
+  // معالج طلب موعد (booking.html)
   // ==========================================================================
   function initBookingPage() {
     const wizardEl = document.getElementById('booking-wizard-wrapper');
@@ -1069,7 +1025,6 @@
     const initialDate = urlParams.get('date') || '';
     const initialTime = urlParams.get('time') || '';
 
-    // حالة الحجز المؤقتة
     const bookingState = {
       specialtyId: initialSpecId,
       doctorId: initialDocId,
@@ -1085,7 +1040,6 @@
       currentStep: 1
     };
 
-    // عناصر الخطوات
     const stepsTabs = document.querySelectorAll('.wizard-step-tab');
     const step1El = document.getElementById('wizard-step-1');
     const step2El = document.getElementById('wizard-step-2');
@@ -1093,13 +1047,11 @@
     const step4El = document.getElementById('wizard-step-4');
     const successEl = document.getElementById('wizard-step-success');
 
-    // حقول الخطوة الأولى
     const specialtySelect = document.getElementById('booking-specialty-select');
     const doctorSelect = document.getElementById('booking-doctor-select');
     const typeCards = document.querySelectorAll('.type-radio-card');
     const toStep2Btn = document.getElementById('to-step-2-btn');
 
-    // ملء التخصصات
     if (specialtySelect) {
       specialtySelect.innerHTML = `
         <option value="">-- ${t('bookingPage.chooseSpecialty')} --</option>
@@ -1139,7 +1091,6 @@
       });
     }
 
-    // نوع الاستشارة
     typeCards.forEach(card => {
       const type = card.getAttribute('data-type');
       if (type === bookingState.consultationType) card.classList.add('active');
@@ -1151,7 +1102,6 @@
       });
     });
 
-    // التنقل للخطوة الثانية
     if (toStep2Btn) {
       toStep2Btn.addEventListener('click', () => {
         bookingState.specialtyId = specialtySelect ? specialtySelect.value : '';
@@ -1171,7 +1121,6 @@
       });
     }
 
-    // الخطوة الثانية: التقويم والفترات
     const toStep1Btn = document.getElementById('back-to-step-1-btn');
     const toStep3Btn = document.getElementById('to-step-3-btn');
     if (toStep1Btn) toStep1Btn.addEventListener('click', () => goToStep(1));
@@ -1184,7 +1133,6 @@
       const doc = DOCTORS.find(d => d.id === bookingState.doctorId);
       if (!doc) return;
 
-      // 14 يوماً قادمة
       const today = new Date();
       const nextDays = [];
       for (let i = 1; i <= 14; i++) {
@@ -1203,7 +1151,6 @@
         });
       }
 
-      // اختيار اليوم الافتراضي
       let activeDate = bookingState.appointmentDate;
       const firstAvailable = nextDays.find(d => !d.disabled);
       if (!activeDate || nextDays.find(d => d.dateIso === activeDate && d.disabled)) {
@@ -1213,19 +1160,17 @@
 
       daysWrap.innerHTML = nextDays.map(d => `
         <button type="button" class="schedule-day-btn ${d.dateIso === activeDate ? 'active' : ''}" 
-                data-date="${d.dateIso}" ${d.disabled ? 'disabled style="opacity:0.4;cursor:not-allowed;"' : ''}>
+                data-date="${d.dateIso}" ${d.disabled ? 'disabled style="opacity:0.35;cursor:not-allowed;"' : ''}>
           <span class="day-btn-name">${d.dayName}</span>
           <span class="day-btn-date">${d.dayNum}</span>
         </button>
       `).join('');
 
       function renderSlots(dateIso) {
-        const booked = getSavedBookings();
         slotsWrap.innerHTML = doc.timeSlots.map(slot => {
-          const isTaken = booked.some(b => b.doctorId === doc.id && b.date === dateIso && b.timeSlot === slot && b.status === 'confirmed');
           const isSelected = bookingState.appointmentTime === slot;
           return `
-            <button type="button" class="slot-btn ${isSelected ? 'active' : ''}" data-slot="${slot}" ${isTaken ? 'disabled' : ''}>
+            <button type="button" class="slot-btn ${isSelected ? 'active' : ''}" data-slot="${slot}">
               ${slot}
             </button>
           `;
@@ -1267,7 +1212,6 @@
       });
     }
 
-    // الخطوة الثالثة: بيانات المريض
     const toStep2BackBtn = document.getElementById('back-to-step-2-btn');
     const toStep4Btn = document.getElementById('to-step-4-btn');
     if (toStep2BackBtn) toStep2BackBtn.addEventListener('click', () => goToStep(2));
@@ -1286,14 +1230,12 @@
         const age = parseInt(ageInput ? ageInput.value : '0', 10);
         const notes = notesInput ? notesInput.value.trim() : '';
 
-        // التحقق من الاسم
         if (!name || name.length < 3) {
           alert(t('bookingPage.validationErrors.nameRequired'));
           nameInput.focus();
           return;
         }
 
-        // التحقق من صيغة الهاتف المصري (01xxxxxxxxx أو 11 رقم)
         const egyptianPhoneRegex = /^01[0125][0-9]{8}$/;
         if (!egyptianPhoneRegex.test(phone)) {
           alert(t('bookingPage.validationErrors.phoneInvalid'));
@@ -1301,14 +1243,12 @@
           return;
         }
 
-        // التحقق من البريد إن وجد
         if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
           alert(t('bookingPage.validationErrors.emailInvalid'));
           emailInput.focus();
           return;
         }
 
-        // التحقق من العمر
         if (isNaN(age) || age < 0 || age > 120) {
           alert(t('bookingPage.validationErrors.ageInvalid'));
           ageInput.focus();
@@ -1326,7 +1266,6 @@
       });
     }
 
-    // الخطوة الرابعة: مراجعة الملخص والتأكيد
     const toStep3BackBtn = document.getElementById('back-to-step-3-btn');
     const confirmFinalBtn = document.getElementById('confirm-booking-final-btn');
     if (toStep3BackBtn) toStep3BackBtn.addEventListener('click', () => goToStep(3));
@@ -1359,13 +1298,12 @@
     if (confirmFinalBtn) {
       confirmFinalBtn.addEventListener('click', () => {
         confirmFinalBtn.disabled = true;
-        confirmFinalBtn.textContent = lang === 'ar' ? 'جاري تأكيد الحجز...' : 'Confirming...';
+        confirmFinalBtn.textContent = lang === 'ar' ? 'جاري إرسال الطلب...' : 'Sending Request...';
 
-        // إنشاء رقم حجز فريد
         const randomNum = Math.floor(1000 + Math.random() * 9000);
         const refCode = `NB-2026-${randomNum}`;
 
-        const newBooking = {
+        const newRequest = {
           id: refCode,
           refCode: refCode,
           doctorId: bookingState.doctorId,
@@ -1379,28 +1317,21 @@
           patientAge: bookingState.patientAge,
           patientNotes: bookingState.patientNotes,
           fee: bookingState.fee,
-          status: 'confirmed',
+          status: 'pending',
           createdAt: new Date().toISOString()
         };
 
-        // حفظ في localStorage
-        const list = getSavedBookings();
-        list.unshift(newBooking);
-        saveBookings(list);
-
-        // إرسال اختياري لـ Formspree
         if (CONFIG.formspreeBookingEndpoint && !CONFIG.formspreeBookingEndpoint.includes('your_form_id')) {
           try {
             fetch(CONFIG.formspreeBookingEndpoint, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-              body: JSON.stringify(newBooking)
+              body: JSON.stringify(newRequest)
             }).catch(() => {});
           } catch (e) {}
         }
 
-        // عرض شاشة النجاح
-        showSuccessScreen(newBooking);
+        showSuccessScreen(newRequest);
       });
     }
 
@@ -1411,22 +1342,20 @@
       step4El.style.display = 'none';
       if (successEl) successEl.style.display = 'block';
 
-      // إخفاء تبويبات الهيدر
       const headerTabs = document.querySelector('.wizard-steps-header');
       if (headerTabs) headerTabs.style.display = 'none';
 
       const refEl = document.getElementById('success-ref-code');
       if (refEl) refEl.textContent = booking.refCode;
 
-      // إعداد زر الواتساب مع رسالة جاهزة
       const doc = DOCTORS.find(d => d.id === booking.doctorId);
       const docName = doc ? (lang === 'ar' ? doc.nameAr : doc.nameEn) : '';
       const type = CONSULTATION_TYPES.find(c => c.id === booking.consultationType);
       const typeName = type ? (lang === 'ar' ? type.nameAr : type.nameEn) : '';
 
       const waMsg = lang === 'ar'
-        ? `مرحباً نبض للرعاية الطبية، قمت بحجز موعد برقم ${booking.refCode}%0Aالمريض: ${booking.patientName}%0Aالطبيب: ${docName}%0Aالنوع: ${typeName}%0Aالتاريخ: ${booking.date} الساعة ${booking.timeSlot}`
-        : `Hello Nabd Care, I booked an appointment with code ${booking.refCode}%0APatient: ${booking.patientName}%0ADoctor: ${docName}%0AMode: ${typeName}%0ADate: ${booking.date} at ${booking.timeSlot}`;
+        ? `مرحباً نبض للرعاية الطبية، قمت بطلب موعد برقم مرجعي ${booking.refCode}%0Aالمريض: ${booking.patientName}%0Aالطبيب: ${docName}%0Aالنوع: ${typeName}%0Aالتاريخ: ${booking.date} الساعة ${booking.timeSlot}`
+        : `Hello Nabd Care, I submitted an appointment request with code ${booking.refCode}%0APatient: ${booking.patientName}%0ADoctor: ${docName}%0AMode: ${typeName}%0ADate: ${booking.date} at ${booking.timeSlot}`;
 
       const waBtn = document.getElementById('success-whatsapp-btn');
       if (waBtn) {
@@ -1451,88 +1380,6 @@
     }
 
     goToStep(1);
-  }
-
-  // ==========================================================================
-  // صفحة حجوزاتي (my-bookings.html)
-  // ==========================================================================
-  function initMyBookingsPage() {
-    const listWrap = document.getElementById('my-bookings-list');
-    const emptyBox = document.getElementById('my-bookings-empty');
-    if (!listWrap) return;
-
-    const lang = getLang();
-    const bookings = getSavedBookings();
-
-    if (!bookings.length) {
-      listWrap.style.display = 'none';
-      if (emptyBox) emptyBox.style.display = 'block';
-      return;
-    }
-
-    if (emptyBox) emptyBox.style.display = 'none';
-    listWrap.style.display = 'flex';
-
-    listWrap.innerHTML = bookings.map(b => {
-      const doc = DOCTORS.find(d => d.id === b.doctorId);
-      const spec = SPECIALTIES.find(s => s.id === b.specialtyId);
-      const type = CONSULTATION_TYPES.find(c => c.id === b.consultationType);
-
-      const docName = doc ? (lang === 'ar' ? doc.nameAr : doc.nameEn) : 'طبيب المركز';
-      const specName = spec ? (lang === 'ar' ? spec.nameAr : spec.nameEn) : '';
-      const typeName = type ? (lang === 'ar' ? type.nameAr : type.nameEn) : '';
-
-      const isConfirmed = b.status === 'confirmed';
-      const statusClass = isConfirmed ? 'status-tag-confirmed' : 'status-tag-cancelled';
-      const statusText = isConfirmed ? t('myBookingsPage.statusConfirmed') : t('myBookingsPage.statusCancelled');
-
-      return `
-        <div class="booking-item-card ${!isConfirmed ? 'cancelled' : ''}">
-          <div>
-            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
-              <span class="booking-ref-badge">${b.refCode}</span>
-              <span class="booking-status-tag ${statusClass}">${statusText}</span>
-            </div>
-            <h3 class="booking-item-doctor">${docName} <span style="font-size:0.9rem;font-weight:600;color:var(--teal);">(${specName})</span></h3>
-            <div class="booking-item-meta">
-              <span>${ICONS.calendar} ${b.date}</span>
-              <span>${ICONS.clock} ${b.timeSlot}</span>
-              <span>${ICONS.building} ${typeName}</span>
-              <span>${ICONS.user} ${b.patientName}</span>
-              <span>💵 ${formatCurrency(b.fee || 350)}</span>
-            </div>
-          </div>
-          <div class="booking-item-actions">
-            ${isConfirmed ? `
-              <a href="./booking.html?doctor=${b.doctorId}&specialty=${b.specialtyId}" class="btn btn-outline btn-sm">
-                ${t('myBookingsPage.rescheduleBtn')}
-              </a>
-              <button type="button" class="btn btn-outline-navy btn-sm cancel-booking-btn" data-id="${b.id}" style="color:var(--coral);border-color:var(--coral);">
-                ${t('myBookingsPage.cancelBtn')}
-              </button>
-            ` : ''}
-          </div>
-        </div>
-      `;
-    }).join('');
-
-    // معالجة إلغاء الحجز
-    listWrap.querySelectorAll('.cancel-booking-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const id = btn.getAttribute('data-id');
-        const confirmMsg = `${t('myBookingsPage.cancelConfirmTitle')}\n${t('myBookingsPage.cancelConfirmDesc')}`;
-        if (confirm(confirmMsg)) {
-          const list = getSavedBookings();
-          const target = list.find(b => b.id === id);
-          if (target) {
-            target.status = 'cancelled';
-            saveBookings(list);
-            alert(t('myBookingsPage.cancelSuccess'));
-            initMyBookingsPage();
-          }
-        }
-      });
-    });
   }
 
   // ==========================================================================
@@ -1573,7 +1420,6 @@
       `;
     }).join('');
 
-    // مودال القراءة
     let modal = document.getElementById('article-modal');
     if (!modal) {
       modal = document.createElement('div');
@@ -1584,7 +1430,7 @@
           <button type="button" class="article-modal-close" id="article-modal-close-btn">${ICONS.close}</button>
           <span class="badge-tag" id="art-modal-cat"></span>
           <h2 class="section-title" id="art-modal-title" style="margin-top:8px;"></h2>
-          <div class="article-meta" id="art-modal-meta" style="margin-bottom:24px;"></div>
+          <div class="article-meta" id="art-modal-meta" style="margin-bottom:20px;"></div>
           <div class="article-modal-body" id="art-modal-content"></div>
           <div class="article-takeaways-card" id="art-modal-takeaways"></div>
         </div>
@@ -1667,7 +1513,6 @@
 
       btn.addEventListener('click', () => {
         const isOpen = item.classList.contains('open');
-        // إغلاق الباقي
         list.querySelectorAll('.faq-item').forEach(other => {
           other.classList.remove('open');
           const ans = other.querySelector('.faq-answer');
@@ -1717,7 +1562,6 @@
 
       const payload = { name, phone, email, message, date: new Date().toISOString() };
 
-      // محاولة الإرسال لـ Formspree
       try {
         if (CONFIG.formspreeContactEndpoint && !CONFIG.formspreeContactEndpoint.includes('your_form_id')) {
           await fetch(CONFIG.formspreeContactEndpoint, {
@@ -1761,12 +1605,12 @@
             </div>
             <div>
               <span class="badge-tag" style="margin-bottom:4px;">${spec.doctorCount} ${t('specialtiesSection.doctorsCount')}</span>
-              <h2 style="font-size:1.6rem;font-weight:800;color:var(--navy);">${name}</h2>
+              <h2 style="font-size:1.55rem;font-weight:800;color:var(--navy);">${name}</h2>
             </div>
           </div>
-          <p style="font-size:1.05rem;line-height:1.8;color:var(--text);margin-bottom:24px;">${longDesc}</p>
+          <p style="font-size:1.02rem;line-height:1.8;color:var(--text);margin-bottom:24px;">${longDesc}</p>
           
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:28px;">
+          <div class="specialty-detail-columns">
             <div style="background-color:var(--light);padding:20px;border-radius:var(--radius-md);border:1px solid var(--border-light);">
               <h4 style="font-weight:800;color:var(--navy);margin-bottom:12px;">${lang === 'ar' ? 'الحالات الشائعة التي نعالجها:' : 'Common Conditions Treated:'}</h4>
               <ul style="display:flex;flex-direction:column;gap:8px;font-size:0.92rem;color:var(--text);">
@@ -1781,7 +1625,7 @@
             </div>
           </div>
 
-          <div style="display:flex;gap:12px;flex-wrap:wrap;">
+          <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:20px;">
             <a href="./doctors.html?specialty=${spec.id}" class="btn btn-outline">
               ${t('specialtiesSection.viewDoctors')}
             </a>
@@ -1794,7 +1638,6 @@
     }).join('');
   }
 
-  // --- إعادة رسم المحتوى عند تبديل اللغة ---
   function reRenderActivePage() {
     renderFeaturedSpecialties();
     renderFeaturedDoctors();
@@ -1805,13 +1648,11 @@
     initDoctorsPage();
     initDoctorDetailsPage();
     initBookingPage();
-    initMyBookingsPage();
     initBlogPage();
     initFaqPage();
     renderAllSpecialtiesPage();
   }
 
-  // --- بدء التشغيل عند جاهزية DOM ---
   document.addEventListener('DOMContentLoaded', () => {
     const currentLang = getLang();
     document.documentElement.lang = currentLang;

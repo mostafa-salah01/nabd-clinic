@@ -13,15 +13,17 @@ const CONFIG = {
   phone: '+20 2 2345 6789',
   phoneDisplay: '02 2345 6789',
   emergencyPhone: '123',
-  whatsappNumber: '201234567890', // غيّر هذا الرقم لرقم الواتساب الخاص بك
+  whatsappNumber: '201234567890', // رقم الواتساب بالصيغة الدولية
   whatsappDisplay: '+20 123 456 7890',
   email: 'info@nabd-care.example.com',
   addressAr: 'شارع الثورة، مصر الجديدة، القاهرة، جمهورية مصر العربية',
   addressEn: 'Al-Thawra St., Heliopolis, Cairo, Egypt',
   workingHoursAr: 'السبت - الخميس: 8:00 ص - 10:00 م | الجمعة: عيادات الطوارئ فقط',
   workingHoursEn: 'Sat - Thu: 8:00 AM - 10:00 PM | Friday: Emergency Only',
+  workingHoursShortAr: 'السبت – الخميس: 8 ص – 10 م',
+  workingHoursShortEn: 'Sat – Thu: 8 AM – 10 PM',
   googleMapsEmbedUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d110486.27503794189!2d31.2584643!3d30.0827258!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14583fa60b21beeb%3A0x79e57d63f0821516!2sHeliopolis%2C%20Cairo%20Governorate%2C%20Egypt!5e0!3m2!1sen!2seg!4v1700000000000',
-  // رابط Formspree لاستقبال رسائل التواصل والحجوزات (ضع رابطك الخاص هنا بدلاً من الرابط التجريبي)
+  // رابط Formspree لاستقبال طلبات المواعيد ورسائل التواصل
   formspreeContactEndpoint: 'https://formspree.io/f/mqkvrkzl',
   formspreeBookingEndpoint: 'https://formspree.io/f/mqkvrkzl'
 };
@@ -232,7 +234,7 @@ const DOCTORS = [
       video: 250,
       phone: 180
     },
-    scheduleDays: [1, 2, 3, 4, 6], // Sat, Sun, Mon, Tue, Wed (0=Sun, 6=Sat)
+    scheduleDays: [1, 2, 3, 4, 6],
     timeSlots: ['10:00 AM', '11:00 AM', '01:00 PM', '04:00 PM', '06:00 PM', '08:00 PM']
   },
   {
@@ -318,7 +320,7 @@ const DOCTORS = [
   },
   {
     id: 'doc-05',
-    photo: null, // Initial avatar fallback
+    photo: null,
     initials: 'ن.ع',
     initialsEn: 'N.A',
     nameAr: 'د. نادية عبد العزيز',
@@ -734,8 +736,8 @@ const FAQS = [
     categoryEn: 'Booking & Scheduling',
     qAr: 'كيف يمكنني حجز موعد كشف أو استشارة مع الطبيب؟',
     qEn: 'How can I book an appointment or consultation with a doctor?',
-    aAr: 'يمكنك الحجز بسهولة عبر موقعنا في 4 خطوات بسيطة: اختر التخصص والطبيب ونوع الاستشارة، ثم حدد اليوم والوقت المناسب، وأدخل بياناتك لتأكيد الحجز فورياً والحصول على رقم الحجز. كما يمكنك الحجز عبر الهاتف أو الواتساب.',
-    aEn: 'You can book seamlessly on our website in 4 quick steps: choose specialty, doctor, and consultation mode, select your preferred date and slot, and enter your details to receive an instant confirmation code. You can also book via phone or WhatsApp.'
+    aAr: 'يمكنك طلب موعد بسهولة عبر موقعنا في 4 خطوات بسيطة: اختر التخصص والطبيب ونوع الاستشارة، ثم حدد اليوم والوقت المناسب، وأدخل بياناتك لإرسال طلب الموعد فورياً والحصول على رقم الطلب المرجعي.',
+    aEn: 'You can request an appointment seamlessly on our website in 4 quick steps: choose specialty, doctor, and consultation mode, select your preferred date and slot, and submit your details to receive an instant reference code.'
   },
   {
     id: 'faq-2',
@@ -743,8 +745,8 @@ const FAQS = [
     categoryEn: 'Booking & Scheduling',
     qAr: 'هل يمكنني تعديل موعدي أو إلغاؤه لاحقاً؟',
     qEn: 'Can I reschedule or cancel my booking later?',
-    aAr: 'نعم بكل تأكيد. يمكنك الدخول إلى صفحة "حجوزاتي" في أي وقت لعرض تفاصيل حجزك، والضغط على زر "إلغاء الحجز" أو "تعديل الموعد" لاختيار موعد جديد بدون أي رسوم إضافية، شريطة أن يتم ذلك قبل الموعد بساعتين على الأقل.',
-    aEn: 'Absolutely. You can navigate to "My Bookings" anytime to view your reservation details and click "Cancel" or "Reschedule" to pick a new date at no extra charge, provided it is done at least 2 hours prior to your scheduled time.'
+    aAr: 'نعم بكل تأكيد. يمكنك التواصل مع فريق الاستقبال هاتفياً أو عبر رسائل الواتساب بالرقم المرجعي لتعديل الموعد أو إلغائه بدون أي رسوم إضافية، شريطة أن يتم ذلك قبل الموعد بساعتين على الأقل.',
+    aEn: 'Absolutely. You can contact our reception desk via phone or WhatsApp with your reference code to reschedule or cancel at no extra charge, provided it is done at least 2 hours prior to your scheduled time.'
   },
   {
     id: 'faq-3',
@@ -752,7 +754,7 @@ const FAQS = [
     categoryEn: 'Online Consultations',
     qAr: 'كيف تتم استشارة الفيديو أونلاين وما المتطلبات؟',
     qEn: 'How does an online video consultation work and what are the requirements?',
-    aAr: 'بعد تأكيد حجز استشارة الفيديو، ستتلقى رابطاً مشفراً وآمناً لغرفة المكالمة الطبية. كل ما تحتاجه هو هاتف ذكي أو جهاز كمبيوتر متصل بالإنترنت ومزود بكاميرا وميكروفون. يمكنك خلال المكالمة عرض تحاليلك وأشعتك على الطبيب والحصول على روشتة إلكترونية معتمدة.',
+    aAr: 'بعد تأكيد موعد استشارة الفيديو، ستتلقى رابطاً مشفراً وآمناً لغرفة المكالمة الطبية. كل ما تحتاجه هو هاتف ذكي أو جهاز كمبيوتر متصل بالإنترنت ومزود بكاميرا وميكروفون. يمكنك خلال المكالمة عرض تحاليلك وأشعتك على الطبيب والحصول على روشتة إلكترونية معتمدة.',
     aEn: 'Upon confirming your video consultation, you receive a secure encrypted link to the medical room. All you need is a smartphone or laptop with internet access, camera, and microphone. You can share your test reports live and receive an official digital prescription.'
   },
   {
@@ -797,7 +799,7 @@ const FAQS = [
     categoryEn: 'Clinic Policies',
     qAr: 'ماذا أفعل في الحالات الطارئة والعاجلة؟',
     qEn: 'What should I do in an emergency situation?',
-    aAr: 'موقعنا مخصص لحجز الاستشارات والعيادات المجدولة. في الحالات الطارئة والحرجة (مثل آلام الصدر الشديدة، الإغماء، صعوبة التنفس الحادة، أو النزيف)، يرجى الاتصال فوراً بالإسعاف على الرقم 123 أو التوجه لأقرب طوارئ مستشفى.',
+    aAr: 'موقعنا مخصص لطلب الاستشارات والعيادات المجدولة. في الحالات الطارئة والحرجة (مثل آلام الصدر الشديدة، الإغماء، صعوبة التنفس الحادة، أو النزيف)، يرجى الاتصال فوراً بالإسعاف على الرقم 123 أو التوجه لأقرب طوارئ مستشفى.',
     aEn: 'Our booking system is intended for scheduled elective consultations. In critical life-threatening emergencies (e.g., severe chest pain, loss of consciousness, acute respiratory distress), please call 123 immediately or proceed to the nearest hospital emergency room.'
   },
   {
@@ -815,8 +817,8 @@ const FAQS = [
     categoryEn: 'Privacy & Data Protection',
     qAr: 'كيف تضمنون خصوصية وسرية بياناتي الطبية والشخصية؟',
     qEn: 'How do you safeguard patient confidentiality and private health records?',
-    aAr: 'نلتزم بأعلى معايير السرية الطبية وأخلاقيات المهنة. سجلاتك الطبية وتفاصيل استشاراتك مشفرة ولا يطلع عليها سوى طبيبك المعالج وفريق التمريض المختص. في هذا الموقع التجريبي، تبقى بيانات حجزك مخزنة محلياً في متصفحك فقط.',
-    aEn: 'We adhere to stringent medical confidentiality codes. Medical records and consultation notes are strictly accessible only by your treating doctor and clinical care team. On this demo website, your booking details remain strictly on your local browser.'
+    aAr: 'نلتزم بأعلى معايير السرية الطبية وأخلاقيات المهنة. سجلاتك الطبية وتفاصيل استشاراتك مشفرة ولا يطلع عليها سوى طبيبك المعالج وفريق التمريض المختص. في هذا الموقع التجريبي، تبقى بيانات طلبك مخزنة محلياً في متصفحك فقط.',
+    aEn: 'We adhere to stringent medical confidentiality codes. Medical records and consultation notes are strictly accessible only by your treating doctor and clinical care team. On this demo website, your request details remain strictly on your local browser.'
   }
 ];
 
@@ -831,30 +833,30 @@ const I18N = {
   ar: {
     meta: {
       siteName: 'نبض للرعاية الطبية',
-      siteDescription: 'مركز نبض للرعاية الطبية - حجز استشارات طبية وكشف فوري مع نخبة من الاستشاريين والأطباء المعتمدين في القاهرة.'
+      siteDescription: 'مركز نبض للرعاية الطبية - طلب استشارات طبية وكشف فوري مع نخبة من الاستشاريين والأطباء المعتمدين في القاهرة.'
     },
     nav: {
       home: 'الرئيسية',
       about: 'من نحن',
       specialties: 'التخصصات',
       doctors: 'الأطباء',
-      booking: 'احجز الآن',
-      myBookings: 'حجوزاتي',
+      booking: 'اطلب موعد',
       blog: 'نصائح صحية',
       faq: 'الأسئلة الشائعة',
       contact: 'اتصل بنا',
-      langToggle: 'English'
+      langToggle: 'English',
+      langToggleShort: 'EN'
     },
     topbar: {
-      emergencyHotline: 'طوارئ نبض:',
+      emergencyHotline: 'طوارئ:',
       workingHours: 'ساعات العمل:',
-      phone: 'للحجز المباشر:'
+      phone: 'هاتف:'
     },
     hero: {
       badge: 'الرعاية الصحية الأقرب إليك',
       title: 'صحتك تبدأ بموعد واحد ورعاية تستحقها',
       subtitle: 'نجمع لك نخبة من كبار الاستشاريين في 12 تخصصاً دقيقاً مع خيارات حجز مرنة: كشف بالعيادة، استشارة فيديو أونلاين، أو مكالمة هاتفية سريعة.',
-      ctaBook: 'احجز استشارتك الآن',
+      ctaBook: 'اطلب موعدك الآن',
       ctaDoctors: 'تصفح نخبة الأطباء',
       quickBarTitle: 'بحث سريع عن موعد متاح',
       selectSpecialty: 'اختر التخصص الطبي',
@@ -875,7 +877,7 @@ const I18N = {
     specialtiesSection: {
       badge: 'عياداتنا التخصصية',
       title: 'رعاية شاملة تغطي كافة احتياجات أسرتك',
-      subtitle: 'اختر التخصص المطلوب للاطلاع على قائمة الأطباء المتاحين وحجز موعدك بسهولة.',
+      subtitle: 'اختر التخصص المطلوب للاطلاع على قائمة الأطباء المتاحين وطلب موعدك بسهولة.',
       viewAll: 'عرض جميع التخصصات',
       viewDoctors: 'عرض أطباء التخصص',
       doctorsCount: 'أطباء متاحون'
@@ -887,13 +889,13 @@ const I18N = {
       availableToday: 'متاح اليوم',
       rating: 'تقييم',
       consultationFrom: 'سعر الكشف يبدأ من',
-      bookDoctor: 'احجز كشفاً',
+      bookDoctor: 'اطلب كشفاً',
       viewProfile: 'الملف الشخصي',
       viewAllDoctors: 'تصفح جميع الأطباء'
     },
     howItWorks: {
       badge: 'بساطة وسرعة',
-      title: 'كيف تحجز موعدك في 3 خطوات بسيطة؟',
+      title: 'كيف تطلب موعدك في 3 خطوات بسيطة؟',
       step1Num: '01',
       step1Title: 'اختر الطبيب والتخصص',
       step1Desc: 'تصفح أطباء المركز، واطلع على المؤهلات والتقييمات وسعر كل نوع كشف.',
@@ -901,15 +903,15 @@ const I18N = {
       step2Title: 'حدد اليوم والوقت المناسب',
       step2Desc: 'اختر الموعد المتاح من جدول الطبيب التفاعلي ونوع الاستشارة (عيادة / فيديو / هاتف).',
       step3Num: '03',
-      step3Title: 'أكّد الحجز واحصل على الإشعار',
-      step3Desc: 'أدخل بياناتك لتصلك رسالة التأكيد برقم الحجز مع إمكانية الإرسال عبر الواتساب فوراً.'
+      step3Title: 'أرسل الطلب واحصل على الإشعار',
+      step3Desc: 'أدخل بياناتك لتصلك رسالة التأكيد برقم الطلب مع إمكانية الإرسال عبر الواتساب فوراً.'
     },
     consultationModes: {
       badge: 'خيارات تناسب ظروفك',
       title: 'أنواع الاستشارات الطبية في مركز نبض',
       subtitle: 'نوفر لك خيارات متنوعة لتلقي الرعاية الطبية سواء في المركز أو من منزلك.',
       currency: 'ج.م',
-      bookThisMode: 'احجز هذا النوع'
+      bookThisMode: 'اطلب هذا النوع'
     },
     statsSection: {
       title: 'أرقام تعكس ثقة مرضانا وتميز رعايتنا'
@@ -927,8 +929,8 @@ const I18N = {
     },
     ctaSection: {
       title: 'صحتك وراحة بالك تستحق أفضل رعاية طبية',
-      subtitle: 'لا تؤجل الاطمئنان على صحتك وصحة أسرتك. احجز موعدك الآن مع استشاري متخصص في دقائق معدودة.',
-      button: 'احجز موعدك الآن'
+      subtitle: 'لا تؤجل الاطمئنان على صحتك وصحة أسرتك. اطلب موعدك الآن مع استشاري متخصص في دقائق معدودة.',
+      button: 'اطلب موعدك الآن'
     },
     footer: {
       aboutText: 'مركز نبض للرعاية الطبية يقدم خدمات طبية واستشارية متكاملة وفق أحدث البروتوكولات العالمية، مع رعاية إنسانية راقية تضع صحة المريض في صدارة أولوياتها.',
@@ -974,20 +976,20 @@ const I18N = {
       selectDay: '1. اختر اليوم المناسب',
       selectSlot: '2. اختر التوقيت المتاح',
       noSlotsForDay: 'لا توجد مواعيد متاحة في هذا اليوم، يرجى اختيار يوم آخر.',
-      proceedToBooking: 'احجز هذا الموعد الآن',
+      proceedToBooking: 'اطلب هذا الموعد الآن',
       doctorNotFoundTitle: 'لم نتمكن من العثور على الطبيب',
       doctorNotFoundDesc: 'يبدو أن رابط الطبيب غير صحيح أو تم تحديث الصفحة.',
       returnDoctors: 'تصفح قائمة الأطباء'
     },
     bookingPage: {
-      badge: 'حجز موعد جديد',
-      title: 'احجز استشارتك الطبية بسهولة',
-      subtitle: 'خطوات سريعة لحجز كشفك في العيادة أو استشارة أونلاين وتأكيد موعدك فوراً.',
+      badge: 'طلب موعد جديد',
+      title: 'اطلب استشارتك الطبية بسهولة',
+      subtitle: 'خطوات سريعة لطلب كشفك في العيادة أو استشارة أونلاين وتأكيد موعدك فوراً.',
       step1: '1. الطبيب والنوع',
       step2: '2. اليوم والوقت',
       step3: '3. بيانات المريض',
       step4: '4. المراجعة والتأكيد',
-      chooseSpecialty: 'التخصص الطبي المطلوبة',
+      chooseSpecialty: 'التخصص الطبي المطلوب',
       chooseDoctor: 'اختر الطبيب المعالج',
       chooseType: 'نوع الاستشارة',
       chooseDate: 'اختر تاريخ الموعد',
@@ -1001,8 +1003,8 @@ const I18N = {
       patientNotesPlaceholder: 'اكتب بإيجاز الأعراض أو الغرض من الزيارة لمساعدة الطبيب...',
       nextStep: 'المتابعة للخطوة التالية',
       prevStep: 'الخطوة السابقة',
-      confirmBooking: 'تأكيد الحجز النهائي',
-      summaryTitle: 'ملخص بيانات حجزك',
+      confirmBooking: 'إرسال طلب موعد',
+      summaryTitle: 'ملخص بيانات طلبك',
       doctorLabel: 'الطبيب:',
       specialtyLabel: 'التخصص:',
       typeLabel: 'نوع الكشف:',
@@ -1016,12 +1018,12 @@ const I18N = {
       notesLabel: 'الملاحظات:',
       yearsOld: 'سنة',
       currency: 'ج.م',
-      successTitle: 'تم تأكيد حجزك بنجاح!',
-      successSubtitle: 'سعداء بخدمتك! تم حفظ موعدك برقم الحجز أدناه، ويسعدنا استقبالك في الموعد المحدد.',
-      refNumberLabel: 'رقم الحجز المرجعي:',
-      sendWhatsApp: 'أرسل تفاصيل الحجز عبر واتساب',
-      viewMyBookings: 'عرض حجوزاتي المحفوظة',
-      bookAnother: 'حجز موعد آخر',
+      successTitle: 'تم إرسال طلب موعدك بنجاح!',
+      successSubtitle: 'سعداء بخدمتك! تم حفظ طلب موعدك بالرقم المرجعي أدناه، وسيتواصل معك فريق الاستقبال لتأكيد الحضور.',
+      refNumberLabel: 'رقم الطلب المرجعي:',
+      sendWhatsApp: 'أرسل تفاصيل الطلب عبر واتساب',
+      bookAnother: 'طلب موعد آخر',
+      backHome: 'العودة للرئيسية',
       validationErrors: {
         selectDoctor: 'يرجى اختيار التخصص والطبيب أولاً.',
         selectType: 'يرجى تحديد نوع الاستشارة.',
@@ -1032,23 +1034,6 @@ const I18N = {
         emailInvalid: 'يرجى إدخال بريد إلكتروني صحيح.',
         ageInvalid: 'يرجى إدخال عمر صحيح بين 0 و 120 سنة.'
       }
-    },
-    myBookingsPage: {
-      badge: 'سجل الحجوزات',
-      title: 'حجوزاتي ومواعيدي الطبية',
-      subtitle: 'يمكنك مراجعة مواعيدك المحفوظة على هذا المتصفح، أو إلغاؤها، أو إعادة جدولتها بسهولة.',
-      emptyTitle: 'لا توجد حجوزات مسجلة حالياً',
-      emptyDesc: 'لم تقم بحجز أي مواعيد بعد على هذا المتصفح. يمكنك تصفح الأطباء واختيار موعد جديد الآن.',
-      bookNowCTA: 'احجز موعداً جديداً',
-      statusConfirmed: 'مؤكد',
-      statusCancelled: 'ملغي',
-      cancelBtn: 'إلغاء الموعد',
-      rescheduleBtn: 'تعديل الموعد',
-      cancelConfirmTitle: 'هل أنت متأكد من إلغاء هذا الحجز؟',
-      cancelConfirmDesc: 'سيتم إلغاء الموعد وإتاحته لمرضى آخرين.',
-      confirmCancelYes: 'نعم، قم بالإلغاء',
-      confirmCancelNo: 'تراجع',
-      cancelSuccess: 'تم إلغاء الموعد بنجاح.'
     },
     aboutPage: {
       badge: 'قصة ورسالة نبض',
@@ -1116,11 +1101,11 @@ const I18N = {
       subtitle: 'ربما تم نقل الصفحة أو كتابة الرابط بشكل خاطئ. لا تقلق، يمكنك العودة إلى بر الأمان عبر الروابط أدناه.',
       backHome: 'العودة للصفحة الرئيسية',
       browseDoctors: 'تصفح قائمة الأطباء',
-      bookAppointment: 'احجز موعداً'
+      bookAppointment: 'اطلب موعداً'
     },
     common: {
       currency: 'ج.م',
-      bookNow: 'احجز الآن',
+      bookNow: 'اطلب موعد',
       viewAll: 'عرض الكل',
       backToTop: 'للأعلى',
       whatsappHelp: 'محادثة واتساب'
@@ -1136,23 +1121,23 @@ const I18N = {
       about: 'About Us',
       specialties: 'Specialties',
       doctors: 'Doctors',
-      booking: 'Book Now',
-      myBookings: 'My Bookings',
+      booking: 'Request Appointment',
       blog: 'Health Tips',
       faq: 'FAQ',
       contact: 'Contact Us',
-      langToggle: 'عربي'
+      langToggle: 'عربي',
+      langToggleShort: 'ع'
     },
     topbar: {
-      emergencyHotline: 'Emergency Hotline:',
-      workingHours: 'Working Hours:',
-      phone: 'Direct Booking:'
+      emergencyHotline: 'Emergency:',
+      workingHours: 'Hours:',
+      phone: 'Tel:'
     },
     hero: {
       badge: 'Healthcare Tailored Around You',
       title: 'Your Health Begins with a Single Appointment',
       subtitle: 'Connect with elite medical consultants across 12 clinical specialties. Choose how you consult: in-clinic visit, secure HD video call, or swift phone advice.',
-      ctaBook: 'Book Your Consultation',
+      ctaBook: 'Request Your Consultation',
       ctaDoctors: 'Browse Specialist Doctors',
       quickBarTitle: 'Quick Available Slot Search',
       selectSpecialty: 'Select Medical Specialty',
@@ -1185,13 +1170,13 @@ const I18N = {
       availableToday: 'Available Today',
       rating: 'Rating',
       consultationFrom: 'Consultation starts at',
-      bookDoctor: 'Book Visit',
+      bookDoctor: 'Request Visit',
       viewProfile: 'Full Profile',
       viewAllDoctors: 'Browse All Doctors'
     },
     howItWorks: {
       badge: 'Seamless & Simple',
-      title: 'How to Book Your Appointment in 3 Steps',
+      title: 'How to Request Your Appointment in 3 Steps',
       step1Num: '01',
       step1Title: 'Choose Specialty & Doctor',
       step1Desc: 'Explore certified doctors, review patient ratings, qualifications, and transparent fees.',
@@ -1199,15 +1184,15 @@ const I18N = {
       step2Title: 'Select Date & Consultation Mode',
       step2Desc: 'Pick an open slot on the interactive calendar (Clinic, Video Call, or Phone Consult).',
       step3Num: '03',
-      step3Title: 'Confirm & Receive Details',
-      step3Desc: 'Submit your patient details to receive your booking code and instant WhatsApp summary.'
+      step3Title: 'Submit Request & Receive Details',
+      step3Desc: 'Submit your patient details to receive your request code and instant WhatsApp summary.'
     },
     consultationModes: {
       badge: 'Tailored to Your Schedule',
       title: 'Ways to Consult at Nabd Medical Care',
       subtitle: 'Modern care formats designed to fit your health needs, whether in our clinic or from home.',
       currency: 'EGP',
-      bookThisMode: 'Book This Mode'
+      bookThisMode: 'Select This Mode'
     },
     statsSection: {
       title: 'Numbers Reflecting Patient Trust and Clinical Rigor'
@@ -1226,7 +1211,7 @@ const I18N = {
     ctaSection: {
       title: 'Your Health and Peace of Mind Deserve Premier Care',
       subtitle: 'Do not postpone your wellbeing. Reserve a confidential appointment with our top consultants today.',
-      button: 'Book Your Appointment Now'
+      button: 'Request an Appointment'
     },
     footer: {
       aboutText: 'Nabd Medical Care delivers comprehensive outpatient clinical services upholding international treatment guidelines, paired with heartfelt empathy and digital convenience.',
@@ -1272,15 +1257,15 @@ const I18N = {
       selectDay: '1. Select Available Day',
       selectSlot: '2. Select Open Time Slot',
       noSlotsForDay: 'No available slots on this day. Please pick another date.',
-      proceedToBooking: 'Book This Slot Now',
+      proceedToBooking: 'Request This Slot Now',
       doctorNotFoundTitle: 'Doctor Profile Not Found',
       doctorNotFoundDesc: 'The link you followed seems expired or the doctor profile is unavailable.',
       returnDoctors: 'Browse Doctor Directory'
     },
     bookingPage: {
-      badge: 'New Appointment',
-      title: 'Book Your Medical Consultation',
-      subtitle: 'A streamlined 4-step wizard to secure your clinic appointment or virtual consult.',
+      badge: 'New Appointment Request',
+      title: 'Request Your Medical Consultation',
+      subtitle: 'A streamlined 4-step wizard to request your clinic appointment or virtual consult.',
       step1: '1. Doctor & Mode',
       step2: '2. Date & Time',
       step3: '3. Patient Info',
@@ -1299,8 +1284,8 @@ const I18N = {
       patientNotesPlaceholder: 'Briefly state your symptoms or reason for visit to brief your doctor...',
       nextStep: 'Continue to Next Step',
       prevStep: 'Previous Step',
-      confirmBooking: 'Confirm Appointment',
-      summaryTitle: 'Booking Summary Details',
+      confirmBooking: 'Send Appointment Request',
+      summaryTitle: 'Request Summary Details',
       doctorLabel: 'Doctor:',
       specialtyLabel: 'Specialty:',
       typeLabel: 'Consultation Mode:',
@@ -1314,12 +1299,12 @@ const I18N = {
       notesLabel: 'Notes:',
       yearsOld: 'Years',
       currency: 'EGP',
-      successTitle: 'Appointment Confirmed Successfully!',
-      successSubtitle: 'We look forward to welcoming you. Your booking reference number is generated below.',
-      refNumberLabel: 'Booking Reference Code:',
-      sendWhatsApp: 'Send Details via WhatsApp',
-      viewMyBookings: 'View Saved Bookings',
-      bookAnother: 'Book Another Visit',
+      successTitle: 'Appointment Request Sent Successfully!',
+      successSubtitle: 'Thank you! Your appointment request has been recorded with the reference code below. Our reception team will reach out to confirm your visit.',
+      refNumberLabel: 'Request Reference Code:',
+      sendWhatsApp: 'Send Request via WhatsApp',
+      bookAnother: 'Request Another Visit',
+      backHome: 'Back to Home',
       validationErrors: {
         selectDoctor: 'Please choose both specialty and doctor first.',
         selectType: 'Please choose a consultation mode.',
@@ -1330,23 +1315,6 @@ const I18N = {
         emailInvalid: 'Please enter a valid email address.',
         ageInvalid: 'Please enter a valid age between 0 and 120.'
       }
-    },
-    myBookingsPage: {
-      badge: 'Appointment Records',
-      title: 'My Medical Bookings',
-      subtitle: 'Manage your visits saved on this browser, cancel with one click, or reschedule smoothly.',
-      emptyTitle: 'No Bookings Recorded Yet',
-      emptyDesc: 'You have not booked any appointments on this browser yet. Browse our doctors and book your first visit today.',
-      bookNowCTA: 'Book New Appointment',
-      statusConfirmed: 'Confirmed',
-      statusCancelled: 'Cancelled',
-      cancelBtn: 'Cancel Visit',
-      rescheduleBtn: 'Reschedule',
-      cancelConfirmTitle: 'Are you sure you want to cancel this visit?',
-      cancelConfirmDesc: 'This slot will be released for other patients.',
-      confirmCancelYes: 'Yes, Cancel Appointment',
-      confirmCancelNo: 'Keep Appointment',
-      cancelSuccess: 'Appointment successfully cancelled.'
     },
     aboutPage: {
       badge: 'Story & Mission',
@@ -1414,11 +1382,11 @@ const I18N = {
       subtitle: 'The link might be broken or the page has moved. Navigate back safely using the options below.',
       backHome: 'Return to Homepage',
       browseDoctors: 'Browse Doctor Directory',
-      bookAppointment: 'Book an Appointment'
+      bookAppointment: 'Request an Appointment'
     },
     common: {
       currency: 'EGP',
-      bookNow: 'Book Now',
+      bookNow: 'Request Appointment',
       viewAll: 'View All',
       backToTop: 'Top',
       whatsappHelp: 'WhatsApp Chat'
